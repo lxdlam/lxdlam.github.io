@@ -1,0 +1,356 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>Ramen的算法笔记.1 - Ramen's Box</title><meta name=Description content="Ramen's stuff box"><meta property="og:title" content="Ramen的算法笔记.1"><meta property="og:description" content="这个系列自从出了个预告，然后就什么都没有了。
+哎，这段时间好划啊，什么都没研究进去，只能吃吃老本了。
+最近也是忙的要死，什么技术性文章都没写，是时候动笔了。
+（DDM会复活的，相信我！！！
+对了，这篇文章开始结构要发生改变，预告里面那个结构太智障不实用了。"><meta property="og:type" content="article"><meta property="og:url" content="https://blog.lxdlam.com/post/8ecb99c8/"><meta property="og:image" content="https://blog.lxdlam.com/logo.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2017-05-13T22:45:06+08:00"><meta property="article:modified_time" content="2022-10-12T00:29:54+08:00"><meta property="og:site_name" content="My cool site"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://blog.lxdlam.com/logo.png"><meta name=twitter:title content="Ramen的算法笔记.1"><meta name=twitter:description content="这个系列自从出了个预告，然后就什么都没有了。
+哎，这段时间好划啊，什么都没研究进去，只能吃吃老本了。
+最近也是忙的要死，什么技术性文章都没写，是时候动笔了。
+（DDM会复活的，相信我！！！
+对了，这篇文章开始结构要发生改变，预告里面那个结构太智障不实用了。"><meta name=application-name content="Ramen's Box"><meta name=apple-mobile-web-app-title content="Ramen's Box"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://blog.lxdlam.com/post/8ecb99c8/><link rel=prev href=https://blog.lxdlam.com/post/58bcf4a2/><link rel=next href=https://blog.lxdlam.com/post/517fc966/><link rel=stylesheet href=/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><meta name=google-site-verification content="UA-92306989-1"><meta name=baidu-site-verification content="092774cb717e6851abd2d7fc55835b40"><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Ramen的算法笔记.1","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/blog.lxdlam.com\/post\/8ecb99c8\/"},"image":["https:\/\/blog.lxdlam.com\/images\/Apple-Devices-Preview.png"],"genre":"posts","keywords":"算法, ACM-ICPC, 并查集, 技术, C\u002b\u002b","wordcount":4278,"url":"https:\/\/blog.lxdlam.com\/post\/8ecb99c8\/","datePublished":"2017-05-13T22:45:06+08:00","dateModified":"2022-10-12T00:29:54+08:00","license":"本站所有内容基于署名-非商业性使用-相同方式共享 4.0 国际协议（CC BY-NC-SA 4.0）给出许可","publisher":{"@type":"Organization","name":"Ramen","logo":"https:\/\/blog.lxdlam.com\/images\/avatar.png"},"author":{"@type":"Person","name":"Ramen"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="Ramen's Box"><span class=header-title-pre><i class='fas fa-star'></i></span>Ramen's Box</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>所有文章 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=/about/>关于 </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="Ramen's Box"><span class=header-title-pre><i class='fas fa-star'></i></span>Ramen's Box</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><a class=menu-item href=/posts/ title>所有文章</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/about/ title>关于</a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>目录</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Ramen的算法笔记.1</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=https://blog.lxdlam.com title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Ramen</a></span>&nbsp;<span class=post-category>收录于 <a href=/categories/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/><i class="far fa-folder fa-fw" aria-hidden=true></i>算法笔记</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2017-05-13>2017-05-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;约 4278 字&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;预计阅读 9 分钟&nbsp;</div></div><div class="details toc" id=toc-static data-kept><div class="details-summary toc-title"><span>目录</span>
+<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#ramen的算法笔记1-并查集>Ramen的算法笔记.1 并查集</a><ul><li><a href=#1定义与api>1.定义与API</a><ul><li><a href=#11定义>1.1定义</a></li><li><a href=#12-api>1.2 API</a></li></ul></li><li><a href=#2算法细节>2.算法细节</a></li><li><a href=#3实现>3.实现</a></li><li><a href=#4优化>4.优化</a><ul><li><a href=#41合并操作的优化按秩合并>4.1合并操作的优化——按秩合并</a></li><li><a href=#42查询操作的优化路径压缩>4.2查询操作的优化——路径压缩</a></li><li><a href=#43实现>4.3实现</a></li></ul></li><li><a href=#5讨论>5.讨论</a></li><li><a href=#6例题>6.例题</a></li><li><a href=#7引用>7.引用</a></li></ul></li></ul></nav></div></div><div class=content id=content><p>这个系列自从出了个预告，然后就什么都没有了。</p><p>哎，这段时间好划啊，什么都没研究进去，只能吃吃老本了。</p><p>最近也是忙的要死，什么技术性文章都没写，是时候动笔了。</p><p>（DDM会复活的，相信我！！！</p><p>对了，这篇文章开始结构要发生改变，预告里面那个结构太<del>智障</del>不实用了。</p><h2 id=ramen的算法笔记1-并查集>Ramen的算法笔记.1 并查集</h2><p>什么是并查集？说这个问题前，我们先想一个情景：</p><blockquote><p>我有100位好朋友，现在我要举办一场Party！Whoo！</p><p>在我的这些朋友中，有一些人相互认识，比如A认识C，C又认识E，然后W认识X……</p><p>认识的人坐一起那当然更爽了！比如A、C、E坐一桌，W和X坐一桌……</p><p>现在我想问你，我最少需要多少张桌子？</p></blockquote><p>怎么样，是否有点清晰了？并查集解决的就是这样的问题。</p><p>简单来说，就是把相似的划分进一组，最后问问你有几组的问题。</p><p>这个问题我们可以想象网络，每两台的连接起来的机器分进一组，那么我们很容易就能计算出当前有多少组机器互联了，假如我们新增加一组机器可以让三组互联，那么让它们全部互联还需要加机组机器这样的问题。存储这种关系并返回查询结果的数据结构就是并查集了。</p><h3 id=1定义与api>1.定义与API</h3><h4 id=11定义>1.1定义</h4><p>并查集，Union-Find Set，也叫用于不相交集合的数据结构，Disjoint-Set Data Structure。</p><blockquote><p>在计算机科学中，<strong>并查集</strong>是一种树型的数据结构，其保持着用于处理一些不相交集合（Disjoint Sets）的合并及查询问题。有一个<strong>联合-查找算法</strong>（<strong>union-find algorithm</strong>）定义了两个操作用于此数据结构。</p><p>​ ——维基百科</p></blockquote><p>那么并查集的最终用途，就是用于对一组<strong>不相交集合</strong>进行<strong>合并</strong>操作，并从此<strong>查询</strong>，获得关于<strong>元素</strong>的信息。在这个过程中，我们把元素抽象为一个个<strong>触点</strong>，而每一个集合里面的元素都是<strong>联通</strong>的，所联通的两个触点间的路径被我们称为<strong>联通分量</strong>。</p><p>显然，我们把集合抽象为了一个无向图。</p><p>这是一个用树去处理图的数据结构。想到什么了吗？对，<strong>最小生成树</strong>。我们会在最小生成树这一节用到并查集。</p><h4 id=12-api>1.2 API</h4><p>下面是并查集的API接口。</p><p>接口的描述形式采用《算法（第4版）》的形式。<del>（橙书好橙书棒，橙书你买不了吃亏买不了上当～</del></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=k>class</span> <span class=nc>UF</span>
+</span></span></code></pre></td></tr></table></div></div><table><thead><tr><th style=text-align:right>返回值</th><th>API</th><th style=text-align:center>解释</th></tr></thead><tbody><tr><td style=text-align:right></td><td><code>UF(int n)</code></td><td style=text-align:center>构造一个有<code>n</code>个触点的并查集</td></tr><tr><td style=text-align:right></td><td><code>~UF()</code></td><td style=text-align:center>析构此并查集</td></tr><tr><td style=text-align:right><code>void</code></td><td><code>Union(int p, int q)</code></td><td style=text-align:center>添加触点<code>p</code>到触点<code>q</code>的联通分量</td></tr><tr><td style=text-align:right><code>int</code></td><td><code>find(int p)</code></td><td style=text-align:center>返回触点<code>p</code>的所在分量的标识符（代表元素、根触点）</td></tr><tr><td style=text-align:right><code>bool</code></td><td><code>connected(int p, int q)</code></td><td style=text-align:center>查询是否触点<code>p</code>与触点<code>q</code>在一个联通分量里面</td></tr><tr><td style=text-align:right><code>int</code></td><td><code>getCount()</code></td><td style=text-align:center>返回联通分量的数量</td></tr></tbody></table><h3 id=2算法细节>2.算法细节</h3><p>从API定义我们能看到，并查集所实现的操作十分简单，而且极为清晰。</p><p>首先我们来想，怎么存这个图。很显而易见的是，这个图没有权值（也可以说权值均为1），所以我们并不需要邻接矩阵或者邻接链表。这里<strong>一维数组</strong>就足够解决一切问题。显而易见的是，联通分量最初为n个，因为没有任何触点<strong>此时</strong>是联通的。</p><p>接下来的问题是，怎么表示两个触点在一个联通分量里面？</p><p>第一种做法很简单，如果二者在同一个联通分量里面，说明二者具有相同的性质，那就让这二者都指向其中一个就行了，比如1和8在一个联通分量里面，那么1和8的数组数据要么都是1要么都是8不就结束了？</p><p>这种方法我们能证明在$O(1)$的时间内就能把两个触点添加到同一个联通分量里面。但是我们要查询呢？很显然，很麻烦，最坏的情况是，查询其中一个元素遍历了$n/2$的数组，而另一个元素也需要遍历$n/2$次数组，这样算法复杂度很大。进一步研究表示，假如我们添加了所有联通分量，也就是最后只剩一个联通分量，那我们最终需要访问$(N+3)(N-1)$次数组，也就是$O(N^2)$的复杂度。现实生活中这样的算法实际上无法使用，因为并查集一般需要处理的问题大概在百万级别，这样的复杂度实在是太高了。</p><p>第二种做法就显得复杂但是速度更快。我们这么想，一开始我们让所有触点指向自己，也就是说所有触点的<strong>根触点</strong>是它们自己。之后我们归并两个触点的时候，我们只需要让它们指向同一个根触点就行。</p><p>举例来说，一开始是1和8，那么我们让1仍旧指向自身，然后让8指向1。后来我们又需要添加8和3，那么只需要让3也指向1，此时我们查询8和3，能查到这二者根触点是一个，这二者就在一个联通分量里面。此时根触点就是分量的标识符。</p><p>眼熟吗？对，这就是一棵树。</p><p>弄懂了这里，我们就可以开始考虑实现了。</p><h3 id=3实现>3.实现</h3><p>实现阶段，我们有以下问题需要考虑。</p><ol><li><p>多少个触点？</p><p>我们一共有<code>n</code>个触点，所以我们需要一个<code>n</code>大小的数组。动态内存分配即可。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=kt>int</span> <span class=o>*</span><span class=n>id</span> <span class=o>=</span> <span class=k>new</span> <span class=kt>int</span><span class=p>[</span><span class=n>n</span><span class=p>];</span>
+</span></span></code></pre></td></tr></table></div></div><p>这个时候要注意析构：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>delete[] id;
+</span></span></code></pre></td></tr></table></div></div></li><li><p>初始化？</p><p>初始化让所有触点指向自己即可：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>N</span><span class=p>;</span> <span class=n>i</span><span class=o>++</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>id</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>=</span> <span class=n>i</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div></li><li><p>怎么查找？</p><p>由上面的讨论我们知道，到后面会出现树挂到根触点的情况，所以我们不能只是简单找到一个点就结束了。根据我们的讨论，我们知道一个循环即可，退出条件是触点指向自己。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=kt>int</span> <span class=nf>find</span><span class=p>(</span><span class=kt>int</span> <span class=n>p</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>while</span> <span class=p>(</span><span class=n>p</span> <span class=o>!=</span> <span class=n>id</span><span class=p>[</span><span class=n>p</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>        <span class=n>p</span> <span class=o>=</span> <span class=n>id</span><span class=p>[</span><span class=n>p</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>p</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div></li><li><p>归并操作？</p><p>归并操作就简单许多，我们让其指向一个统一的根触点即可。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=kt>void</span> <span class=nf>Union</span><span class=p>(</span><span class=kt>int</span> <span class=n>p</span><span class=p>,</span> <span class=kt>int</span> <span class=n>q</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=n>pRoot</span> <span class=o>=</span> <span class=n>find</span><span class=p>(</span><span class=n>p</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=n>qRoot</span> <span class=o>=</span> <span class=n>find</span><span class=p>(</span><span class=n>q</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=n>pRoot</span> <span class=o>==</span> <span class=n>qRoot</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>id</span><span class=p>[</span><span class=n>pRoot</span><span class=p>]</span> <span class=o>=</span> <span class=n>qRoot</span><span class=p>;</span> <span class=c1>// id[qRoot] = pRoot is valid too.
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>    <span class=n>count</span><span class=o>--</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div></li></ol><p>这些问题解决了，实现起来就简单了，下面是完整实现：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=k>class</span> <span class=nc>UF</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=k>public</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>UF</span><span class=p>(</span><span class=kt>int</span> <span class=n>n</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>count</span> <span class=o>=</span> <span class=n>length</span> <span class=o>=</span> <span class=n>n</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=n>id</span> <span class=o>=</span> <span class=k>new</span> <span class=kt>int</span><span class=p>[</span><span class=n>n</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>        <span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>length</span><span class=p>;</span> <span class=n>i</span><span class=o>++</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=n>id</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>=</span> <span class=n>i</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=o>~</span><span class=n>UF</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>delete</span><span class=p>[]</span> <span class=n>id</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=nf>getCount</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>count</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kt>bool</span> <span class=nf>connected</span><span class=p>(</span><span class=kt>int</span> <span class=n>p</span><span class=p>,</span> <span class=kt>int</span> <span class=n>q</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>find</span><span class=p>(</span><span class=n>p</span><span class=p>)</span> <span class=o>==</span> <span class=n>find</span><span class=p>(</span><span class=n>q</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=nf>find</span><span class=p>(</span><span class=kt>int</span> <span class=n>p</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>while</span> <span class=p>(</span><span class=n>p</span> <span class=o>!=</span> <span class=n>id</span><span class=p>[</span><span class=n>p</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>            <span class=n>p</span> <span class=o>=</span> <span class=n>id</span><span class=p>[</span><span class=n>p</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>p</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kt>void</span> <span class=nf>Union</span><span class=p>(</span><span class=kt>int</span> <span class=n>p</span><span class=p>,</span> <span class=kt>int</span> <span class=n>q</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kt>int</span> <span class=n>pRoot</span> <span class=o>=</span> <span class=n>find</span><span class=p>(</span><span class=n>p</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=kt>int</span> <span class=n>qRoot</span> <span class=o>=</span> <span class=n>find</span><span class=p>(</span><span class=n>q</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=n>pRoot</span> <span class=o>==</span> <span class=n>qRoot</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=n>id</span><span class=p>[</span><span class=n>pRoot</span><span class=p>]</span> <span class=o>=</span> <span class=n>qRoot</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=n>count</span><span class=o>--</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=k>private</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=n>count</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=o>*</span><span class=n>id</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=n>length</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=4优化>4.优化</h3><blockquote><p>优化这个板块可能出现可能不出现，取决于怎么讲和这个数据结构有没有优化。</p></blockquote><p>这个算法比起上一个要快，至少在平均状况下。但是在最复杂的情况下，它的复杂度仍然能到达$O(N^2)$。这是因为当这个树是一棵单边树，也就是所有节点都连接在同一侧的时候，我们的整个寻找过程跟第一种情况一样。</p><p>那么我们怎么优化呢？再优化存储结构行不通了，接下来让我们分别看看合并和查询操作。</p><h4 id=41合并操作的优化按秩合并>4.1合并操作的优化——按秩合并</h4><p>首先解决一个问题，什么是秩？我们可以简单的理解为树的深度。按秩合并是一种什么优化呢？我们考察这个例子：</p><a class=lightgallery href=https://assets.lxdlam.com/img/1665505387_e49e478e.gif title=https://assets.lxdlam.com/img/1665505387_e49e478e.gif data-thumbnail=https://assets.lxdlam.com/img/1665505387_e49e478e.gif><img class=lazyload src=/svg/loading.min.svg data-src=https://assets.lxdlam.com/img/1665505387_e49e478e.gif data-srcset="https://assets.lxdlam.com/img/1665505387_e49e478e.gif, https://assets.lxdlam.com/img/1665505387_e49e478e.gif 1.5x, https://assets.lxdlam.com/img/1665505387_e49e478e.gif 2x" data-sizes=auto alt=https://assets.lxdlam.com/img/1665505387_e49e478e.gif width=100%></a>
+<a class=lightgallery href=https://assets.lxdlam.com/img/1665505386_c30ffc19.gif title=https://assets.lxdlam.com/img/1665505386_c30ffc19.gif data-thumbnail=https://assets.lxdlam.com/img/1665505386_c30ffc19.gif><img class=lazyload src=/svg/loading.min.svg data-src=https://assets.lxdlam.com/img/1665505386_c30ffc19.gif data-srcset="https://assets.lxdlam.com/img/1665505386_c30ffc19.gif, https://assets.lxdlam.com/img/1665505386_c30ffc19.gif 1.5x, https://assets.lxdlam.com/img/1665505386_c30ffc19.gif 2x" data-sizes=auto alt=https://assets.lxdlam.com/img/1665505386_c30ffc19.gif width=100%></a><p>你会怎么合并？</p><p>根据刚才的讨论，我们应该尽量减少树的深度，所以显而易见的是，我们应该把第二棵树链接到第一棵树上。</p><h4 id=42查询操作的优化路径压缩>4.2查询操作的优化——路径压缩</h4><p>继续考虑第一张图：</p><a class=lightgallery href=https://assets.lxdlam.com/img/1665505387_e49e478e.gif title=https://assets.lxdlam.com/img/1665505387_e49e478e.gif data-thumbnail=https://assets.lxdlam.com/img/1665505387_e49e478e.gif><img class=lazyload src=/svg/loading.min.svg data-src=https://assets.lxdlam.com/img/1665505387_e49e478e.gif data-srcset="https://assets.lxdlam.com/img/1665505387_e49e478e.gif, https://assets.lxdlam.com/img/1665505387_e49e478e.gif 1.5x, https://assets.lxdlam.com/img/1665505387_e49e478e.gif 2x" data-sizes=auto alt=https://assets.lxdlam.com/img/1665505387_e49e478e.gif width=100%></a><p>想一个问题：当我们查询4的时候，我们最终肯定要查询到根触点1。这也就是说，4这个联通分量的标识符就是1。那么我们能不能这么做，直接把4挂到1下面，不用再经过3和2？当然可以！本着“前人栽树后人乘凉”的原则，这个操作就让查询来实现——也就是说，当我们查询一个节点的时候，我们索性把一条路都挂到根触点上。这样操作之后，图一就变成如下这个样子：</p><a class=lightgallery href=https://assets.lxdlam.com/img/1665505385_5b37cafc.gif title=https://assets.lxdlam.com/img/1665505385_5b37cafc.gif data-thumbnail=https://assets.lxdlam.com/img/1665505385_5b37cafc.gif><img class=lazyload src=/svg/loading.min.svg data-src=https://assets.lxdlam.com/img/1665505385_5b37cafc.gif data-srcset="https://assets.lxdlam.com/img/1665505385_5b37cafc.gif, https://assets.lxdlam.com/img/1665505385_5b37cafc.gif 1.5x, https://assets.lxdlam.com/img/1665505385_5b37cafc.gif 2x" data-sizes=auto alt=https://assets.lxdlam.com/img/1665505385_5b37cafc.gif width=100%></a><p>最理想的情况下，这棵树的深度就是2，一个根触点连接了所有触点。</p><h4 id=43实现>4.3实现</h4><p>代码实现起来就很简单了：</p><ol><li><p>按秩合并</p><ul><li><p>首先，我们需要新建一个表示秩的数组并将其全部初始化为1：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=kt>int</span> <span class=o>*</span><span class=n>sz</span> <span class=o>=</span> <span class=k>new</span> <span class=kt>int</span><span class=p>[</span><span class=n>n</span><span class=p>];</span>
+</span></span><span class=line><span class=cl><span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>n</span><span class=p>;</span> <span class=n>i</span><span class=o>++</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>sz</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p>当然，析构也需要这一句：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=k>delete</span><span class=p>[]</span> <span class=n>sz</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div></li><li><p>其次，在合并过程中，我们需要如下判断：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=k>if</span> <span class=p>(</span><span class=n>sz</span><span class=p>[</span><span class=n>pRoot</span><span class=p>]</span> <span class=o>&lt;</span> <span class=n>sz</span><span class=p>[</span><span class=n>qRoot</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>id</span><span class=p>[</span><span class=n>pRoot</span><span class=p>]</span> <span class=o>=</span> <span class=n>qRoot</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>sz</span><span class=p>[</span><span class=n>qRoot</span><span class=p>]</span> <span class=o>+=</span> <span class=n>sz</span><span class=p>[</span><span class=n>pRoot</span><span class=p>];</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>id</span><span class=p>[</span><span class=n>qRoot</span><span class=p>]</span> <span class=o>=</span> <span class=n>pRoot</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>sz</span><span class=p>[</span><span class=n>pRoot</span><span class=p>]</span> <span class=o>+=</span> <span class=n>sz</span><span class=p>[</span><span class=n>qRoot</span><span class=p>];</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>这就完成啦！</p><p>这里我们做了一层判断，如果左树深度小于右树，就把左树挂到右树上并更新秩，否则就反过来。</p></li></ul></li><li><p>路径压缩</p><p>路径压缩只需要在查询操作中添加两个辅助暂存变量并再度遍历即可：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=kt>int</span> <span class=n>k</span> <span class=o>=</span> <span class=n>p</span><span class=p>,</span> <span class=n>j</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=cm>/* Original Code */</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>while</span> <span class=p>(</span><span class=n>k</span> <span class=o>!=</span> <span class=n>p</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>j</span> <span class=o>=</span> <span class=n>id</span><span class=p>[</span><span class=n>k</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>    <span class=n>id</span><span class=p>[</span><span class=n>k</span><span class=p>]</span> <span class=o>=</span> <span class=n>p</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>k</span> <span class=o>=</span> <span class=n>j</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><code>while</code>循环的退出条件是我们已经来到了根触点。在之前的遍历中，我们已经把当前根触点存到了<code>p</code>中，所以简单判断<code>k!=p</code>即可。接下来的第一行，我们把当前触点的前一个触点暂存到<code>j</code>中，然后下一行把当前触点的根触点更新为<code>p</code>，最后一行修改搜索索引<code>k</code>。短短三行代码就解决了！</p></li></ol><p>下面给出完整代码实现：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=k>class</span> <span class=nc>UF</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=k>public</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>UF</span><span class=p>(</span><span class=kt>int</span> <span class=n>n</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>count</span> <span class=o>=</span> <span class=n>length</span> <span class=o>=</span> <span class=n>n</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=n>id</span> <span class=o>=</span> <span class=k>new</span> <span class=kt>int</span><span class=p>[</span><span class=n>n</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>        <span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>length</span><span class=p>;</span> <span class=n>i</span><span class=o>++</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=n>id</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>=</span> <span class=n>i</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=n>sz</span> <span class=o>=</span> <span class=k>new</span> <span class=kt>int</span><span class=p>[</span><span class=n>n</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>        <span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>length</span><span class=p>;</span> <span class=n>i</span><span class=o>++</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=n>sz</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=o>~</span><span class=n>UF</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>delete</span><span class=p>[]</span> <span class=n>id</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=k>delete</span><span class=p>[]</span> <span class=n>sz</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=nf>getCount</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>count</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kt>bool</span> <span class=nf>connected</span><span class=p>(</span><span class=kt>int</span> <span class=n>p</span><span class=p>,</span> <span class=kt>int</span> <span class=n>q</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>find</span><span class=p>(</span><span class=n>p</span><span class=p>)</span> <span class=o>==</span> <span class=n>find</span><span class=p>(</span><span class=n>q</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=nf>find</span><span class=p>(</span><span class=kt>int</span> <span class=n>p</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kt>int</span> <span class=n>k</span> <span class=o>=</span> <span class=n>p</span><span class=p>,</span> <span class=n>j</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=k>while</span> <span class=p>(</span><span class=n>p</span> <span class=o>!=</span> <span class=n>id</span><span class=p>[</span><span class=n>p</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>            <span class=n>p</span> <span class=o>=</span> <span class=n>id</span><span class=p>[</span><span class=n>p</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>        <span class=k>while</span> <span class=p>(</span><span class=n>k</span> <span class=o>!=</span> <span class=n>p</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=n>j</span> <span class=o>=</span> <span class=n>id</span><span class=p>[</span><span class=n>k</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>            <span class=n>id</span><span class=p>[</span><span class=n>k</span><span class=p>]</span> <span class=o>=</span> <span class=n>p</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=n>k</span> <span class=o>=</span> <span class=n>j</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>p</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kt>void</span> <span class=nf>Union</span><span class=p>(</span><span class=kt>int</span> <span class=n>p</span><span class=p>,</span> <span class=kt>int</span> <span class=n>q</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kt>int</span> <span class=n>pRoot</span> <span class=o>=</span> <span class=n>find</span><span class=p>(</span><span class=n>p</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=kt>int</span> <span class=n>qRoot</span> <span class=o>=</span> <span class=n>find</span><span class=p>(</span><span class=n>q</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=n>pRoot</span> <span class=o>==</span> <span class=n>qRoot</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=n>sz</span><span class=p>[</span><span class=n>pRoot</span><span class=p>]</span> <span class=o>&lt;</span> <span class=n>sz</span><span class=p>[</span><span class=n>qRoot</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>        <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=n>id</span><span class=p>[</span><span class=n>pRoot</span><span class=p>]</span> <span class=o>=</span> <span class=n>qRoot</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=n>sz</span><span class=p>[</span><span class=n>qRoot</span><span class=p>]</span> <span class=o>+=</span> <span class=n>sz</span><span class=p>[</span><span class=n>pRoot</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=k>else</span>
+</span></span><span class=line><span class=cl>        <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=n>id</span><span class=p>[</span><span class=n>qRoot</span><span class=p>]</span> <span class=o>=</span> <span class=n>pRoot</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=n>sz</span><span class=p>[</span><span class=n>pRoot</span><span class=p>]</span> <span class=o>+=</span> <span class=n>sz</span><span class=p>[</span><span class=n>qRoot</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=n>count</span><span class=o>--</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=k>private</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=n>count</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=o>*</span><span class=n>id</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=o>*</span><span class=n>sz</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=n>length</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></td></tr></table></div></div><p>这就是全部了。</p><h3 id=5讨论>5.讨论</h3><ol><li><p>能否再进一步优化？</p><p>经过按秩合并的优化，我们的复杂度变为$O(NlgN)$，已经很不错了。而当我们进行了路径压缩优化后，这个复杂度更加变成了难以置信的十分接近于$O(N)$（十分接近于但是并没有达到）。而在研究之后，我们无奈的说，我们无法得到一个$O(N)$的算法，这是因为并非所有的操作都能在$O(1)$时间内完成，均摊成本无法到达1，所以我们可以得到的结论是：</p><p><strong>按秩合并并进行路径压缩的算法是最优的并查集算法。</strong></p><p>这也就是说，这个算法已经无法再进行优化了。但是一个成分十分接近于$O(N)$的算法已经十分实用了，不是吗？</p><p>具体的成本分析需要较高的数学和概率统计基础，大家感兴趣可以自己搜索论文查看~~（简而言之就是我也不会~~</p></li><li><p>我能否添加删除操作？</p><p>诚然，数据结构中删除是一项十分基础的操作，然而遗憾的是，并没有任何人能发明既能兼顾删除操作又可以和本文所说的一些算法一样高效且简单的算法。换句话说，你可以使用无优化的树形结构来保存并实现删除操作，但是效率会大大降低。</p></li></ol><h3 id=6例题>6.例题</h3><p>两道简单的模板题，提高题目可能之后会有提高专场，本文还是以基础为主～~~（总而言之就是我现在不会~~</p><ol><li><p>HDU 1232 <a href="http://acm.hdu.edu.cn/showproblem.php?pid=1232" target=_blank rel="noopener noreffer">畅通工程</a></p><p>此题十分简单，首先输入的是联通的城市，之后查询几个城市是否联通，那就直接建立并查集，合并，并使用<code>connected(int p, int q)</code>接口查询即可。</p></li><li><p>HDU 1198 <a href="http://acm.hdu.edu.cn/showproblem.php?pid=1198" target=_blank rel="noopener noreffer">Farm Irrigation</a></p><p>这道题有点意思，大意就是说这个农场有11种地块，按照先右后下的顺序告诉你每一种地块，然后问你我最少需要灌溉几次才能全部覆盖。</p><p>第一眼看上去是一个二维的数组，实际上远没有这么麻烦，直接从左往右数然后按一维编号即可。</p><p>第二个难点是联通的转化，首先选择你喜欢的方法把一个地块分解为四个方向，然后从A到K分别给每个地块赋予性质即可，我是使用的位运算。之后对于每一个地块检查右侧和下侧地块，检查上下左右连通性即可，如果联通就合并，不连通就拉倒，最后返回一下联通分量个数即可。因为要遍历一遍数组，所以复杂度是$O(N^2)$。</p></li></ol><h3 id=7引用>7.引用</h3><p>这篇文章的很多实现以及理论均来自《算法（第4版）》，P136～P149，对我帮助很大。</p><p>其次，路径压缩算法来自一篇CSDN博客并经过我简单修改，然而由于我看的时候离现在有点时间了，我也找不到了，暂且对原作者表示感谢吧。</p></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>更新于 2022-10-12</span></div></div><div class=post-info-line><div class=post-info-md></div><div class=post-info-share><span><a href=javascript:void(0); title="分享到 Twitter" data-sharer=twitter data-url=https://blog.lxdlam.com/post/8ecb99c8/ data-title=Ramen的算法笔记.1 data-hashtags=算法,ACM-ICPC,并查集,技术,C++><i class="fab fa-twitter fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Facebook" data-sharer=facebook data-url=https://blog.lxdlam.com/post/8ecb99c8/ data-hashtag=算法><i class="fab fa-facebook-square fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Instapaper" data-sharer=instapaper data-url=https://blog.lxdlam.com/post/8ecb99c8/ data-title=Ramen的算法笔记.1 data-description><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/instapaper.svg aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Pocket" data-sharer=pocket data-url=https://blog.lxdlam.com/post/8ecb99c8/><i class="fab fa-get-pocket fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 微博" data-sharer=weibo data-url=https://blog.lxdlam.com/post/8ecb99c8/ data-title=Ramen的算法笔记.1><i class="fab fa-weibo fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Evernote" data-sharer=evernote data-url=https://blog.lxdlam.com/post/8ecb99c8/ data-title=Ramen的算法笔记.1><i class="fab fa-evernote fa-fw" aria-hidden=true></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw" aria-hidden=true></i>&nbsp;<a href=/tags/%E7%AE%97%E6%B3%95/>算法</a>,&nbsp;<a href=/tags/acm-icpc/>ACM-ICPC</a>,&nbsp;<a href=/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/>并查集</a>,&nbsp;<a href=/tags/%E6%8A%80%E6%9C%AF/>技术</a>,&nbsp;<a href=/tags/c++/>C++</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span></section></div><div class=post-nav><a href=/post/58bcf4a2/ class=prev rel=prev title=Linux下Wifi热点开启><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>Linux下Wifi热点开启</a>
+<a href=/post/517fc966/ class=next rel=next title="oh my zsh!!!">oh my zsh!!!<i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>由 <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> 强力驱动 | 主题 - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2017 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://blog.lxdlam.com target=_blank>Ramen</a></span>&nbsp;|&nbsp;<span class=license><a rel="license noopener" href=https://creativecommons.org/licenses/by-nc-sa/4.0/ target=_blank>署名-非商业性使用-相同方式共享 4.0 国际</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:10},comment:{},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1}}</script><script type=text/javascript src=/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","UA-92306989-1",{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=UA-92306989-1" async></script></body></html>

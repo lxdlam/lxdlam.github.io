@@ -1,0 +1,26 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>FP - 标签 - Ramen's Box</title><link>https://blog.lxdlam.com/tags/fp/</link><description>FP - 标签 - Ramen's Box</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>lxdlam@gmail.com (Ramen)</managingEditor><webMaster>lxdlam@gmail.com (Ramen)</webMaster><copyright>本站所有内容基于署名-非商业性使用-相同方式共享 4.0 国际协议（CC BY-NC-SA 4.0）给出许可</copyright><lastBuildDate>Thu, 14 Sep 2017 22:51:29 +0800</lastBuildDate><atom:link href="https://blog.lxdlam.com/tags/fp/" rel="self" type="application/rss+xml"/><item><title>函数式编程——Think differently（1）</title><link>https://blog.lxdlam.com/post/b0ce9bee/</link><pubDate>Thu, 14 Sep 2017 22:51:29 +0800</pubDate><author>Ramen</author><guid>https://blog.lxdlam.com/post/b0ce9bee/</guid><description><![CDATA[<h2 id="0-写在最前面">0. 写在最前面</h2>
+<p>很久之前就想写一个函数式编程（Functional Programming，下文简称FP）的文章了。</p>
+<p>最早听说函数式编程是大一下开学，看C++11标准的时候看到了一段这样的代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">f</span> <span class="o">=</span> <span class="p">[](</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">f</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span> <span class="c1">// =&gt; 10
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>感觉很神奇，没有见过这种表达式，于是深入了解了一波。</p>
+<p>这便一发不可收拾。</p>
+<p>FP是一个很大的话题，内容非常深，涉及到很多计算机的底层知识，实在是大开眼界。</p>
+<p>闭着眼睛，硬着头皮学了这么久，也觉得能得出一点东西。就写一个简短的系列，力求能简单了解FP吧。</p>
+<p>在这个过程中，也受到了很多人的帮助，很抱歉不能一一列出，如有遗漏，请告诉我。</p>
+<p>对了，本文可能使用很多语言来描述，但是主要的还是<code>Python</code>、<code>Haskell</code>、<code>C++</code>和<code>Java</code>。我会解释清楚必要的前置知识，力求不影响代码理解。</p>
+<p>那么，FP之旅开始了。</p>]]></description></item></channel></rss>

@@ -1,0 +1,265 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>CPP学习笔记(1) - Ramen's Box</title><meta name=Description content="Ramen's stuff box"><meta property="og:title" content="CPP学习笔记(1)"><meta property="og:description" content="《C++ Primer Plus》读书笔记（1） 学校发的C++教材是那本比较经典的《C++大学基础教程（第五版）》，对于我来说内容太少了，所以C++课我都"><meta property="og:type" content="article"><meta property="og:url" content="https://blog.lxdlam.com/post/f0cd48b4/"><meta property="og:image" content="https://blog.lxdlam.com/logo.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2017-03-23T18:18:39+08:00"><meta property="article:modified_time" content="2023-01-04T02:01:57+08:00"><meta property="og:site_name" content="My cool site"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://blog.lxdlam.com/logo.png"><meta name=twitter:title content="CPP学习笔记(1)"><meta name=twitter:description content="《C++ Primer Plus》读书笔记（1） 学校发的C++教材是那本比较经典的《C++大学基础教程（第五版）》，对于我来说内容太少了，所以C++课我都"><meta name=application-name content="Ramen's Box"><meta name=apple-mobile-web-app-title content="Ramen's Box"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://blog.lxdlam.com/post/f0cd48b4/><link rel=prev href=https://blog.lxdlam.com/post/d4004311/><link rel=next href=https://blog.lxdlam.com/post/8ed03f38/><link rel=stylesheet href=/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><meta name=google-site-verification content="UA-92306989-1"><meta name=baidu-site-verification content="092774cb717e6851abd2d7fc55835b40"><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"CPP学习笔记(1)","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/blog.lxdlam.com\/post\/f0cd48b4\/"},"image":["https:\/\/blog.lxdlam.com\/images\/Apple-Devices-Preview.png"],"genre":"posts","keywords":"技术, 技术笔记, C\u002b\u002b, C\u002b\u002b Primer Plus, 读书笔记","wordcount":4763,"url":"https:\/\/blog.lxdlam.com\/post\/f0cd48b4\/","datePublished":"2017-03-23T18:18:39+08:00","dateModified":"2023-01-04T02:01:57+08:00","license":"本站所有内容基于署名-非商业性使用-相同方式共享 4.0 国际协议（CC BY-NC-SA 4.0）给出许可","publisher":{"@type":"Organization","name":"Ramen","logo":"https:\/\/blog.lxdlam.com\/images\/avatar.png"},"author":{"@type":"Person","name":"Ramen"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="Ramen's Box"><span class=header-title-pre><i class='fas fa-star'></i></span>Ramen's Box</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>所有文章 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=/about/>关于 </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="Ramen's Box"><span class=header-title-pre><i class='fas fa-star'></i></span>Ramen's Box</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><a class=menu-item href=/posts/ title>所有文章</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/about/ title>关于</a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>目录</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">CPP学习笔记(1)</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=https://blog.lxdlam.com title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Ramen</a></span>&nbsp;<span class=post-category>收录于 <a href=/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/><i class="far fa-folder fa-fw" aria-hidden=true></i>读书笔记</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2017-03-23>2017-03-23</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;约 4763 字&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;预计阅读 10 分钟&nbsp;</div></div><div class="details toc" id=toc-static data-kept><div class="details-summary toc-title"><span>目录</span>
+<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#c-primer-plus读书笔记1>《C++ Primer Plus》读书笔记（1）</a><ul><li><a href=#覆盖页码1339>覆盖页码：1~339</a><ul><li><a href=#1-cin返回值>1. cin返回值</a></li><li><a href=#2传参效率>2.传参效率</a></li><li><a href=#3using指令问题>3.using指令问题</a></li><li><a href=#4-模板函数>4. 模板函数</a></li><li><a href=#5编译器函数匹配问题>5.编译器函数匹配问题</a></li><li><a href=#6c11表达式值类型>6.C++11表达式值类型</a></li></ul></li></ul></li></ul></nav></div></div><div class=content id=content><h2 id=c-primer-plus读书笔记1>《C++ Primer Plus》读书笔记（1）</h2><p>学校发的C++教材是那本比较经典的《C++大学基础教程（第五版）》，对于我来说内容太少了，所以C++课我都不看那本书，自己刷《C++ Primer Plus（第六版）》（下文简称CPP）。不得不说有一定基础来读这本书真的很舒服，更加详悉全面的讲了很多东西，收获颇多。这个是一个系列，在这更新一点看到的新东西和比较难理解的地方，以及在看书过程中查到的资料等，也算是定期复习。</p><p>虽然有覆盖页码这个说法，但是也不是每次都能写完，万一有就下次补充了～</p><h3 id=覆盖页码1339>覆盖页码：1~339</h3><h4 id=1-cin返回值>1. cin返回值</h4><p>cin是一个对象，但是在输入的时候存在一个bool类型的返回值来表示文件是否到达末尾。也就是说：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-C++ data-lang=C++><span class=line><span class=cl><span class=k>while</span><span class=p>(</span><span class=n>cin</span> <span class=o>&gt;&gt;</span> <span class=n>a</span><span class=p>){</span>
+</span></span><span class=line><span class=cl>  <span class=p>...</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>...</span>
+</span></span><span class=line><span class=cl><span class=k>while</span><span class=p>(</span><span class=o>!</span><span class=n>cin</span><span class=p>.</span><span class=n>eof</span><span class=p>()){</span>
+</span></span><span class=line><span class=cl>  <span class=n>cin</span> <span class=o>&gt;&gt;</span> <span class=n>a</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=p>...</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>其实是等价的。在很多时候处理输入就会比较方便。</p><h4 id=2传参效率>2.传参效率</h4><p>众所周知，C++存在三种传参方式。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=c1>//拷贝传参
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=nf>foo1</span><span class=p>(</span><span class=kt>int</span> <span class=n>a</span><span class=p>,</span> <span class=kt>int</span> <span class=n>b</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=c1>//指针传参
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=nf>foo2</span><span class=p>(</span><span class=kt>int</span> <span class=o>*</span><span class=n>a</span><span class=p>,</span> <span class=kt>int</span> <span class=o>*</span><span class=n>b</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=c1>//引用传参
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=nf>foo3</span><span class=p>(</span><span class=kt>int</span> <span class=o>&amp;</span><span class=n>a</span><span class=p>,</span> <span class=kt>int</span> <span class=o>&amp;</span><span class=n>b</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><p>它们之间的区别各种书都会讲，这里主要谈引用传参和拷贝传参的效率问题。从编译实现上来说，引用传参一般效率比较高，但是很多时候我们只是需要传入值去计算而不是修改原值，那么我们怎么做？很简单：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=c1>//常规实现
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=nf>foo</span><span class=p>(</span><span class=kt>int</span> <span class=n>a</span><span class=p>,</span> <span class=kt>int</span> <span class=n>b</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=c1>//修改后实现
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=nf>foo</span><span class=p>(</span><span class=k>const</span> <span class=kt>int</span> <span class=o>&amp;</span><span class=n>a</span><span class=p>,</span> <span class=k>const</span> <span class=kt>int</span> <span class=o>&amp;</span><span class=n>b</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><p>原理是这样的，根据作用原理，第一个函数实现必须要在内部创建临时变量存储<code>a</code>和<code>b</code>的值，这部分内存和时间开销根本没有必要，所以我们选择了第二种实现，直接把变量传进去，同时使用了<code>const</code>限定符，保证内部不会修改<code>a</code>和<code>b</code>，减少部分开销，实际上提升了效率。</p><h4 id=3using指令问题>3.using指令问题</h4><p><code>using</code>指令两种用法：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=c1>//编译器预处理指令
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>using</span> <span class=k>namespace</span> <span class=n>std</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=c1>//using声明
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>using</span> <span class=n>std</span><span class=o>::</span><span class=n>cin</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=k>using</span> <span class=n>std</span><span class=o>::</span><span class=n>cout</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p>二者存在这样的区别：</p><ol><li><p>编译器预处理指令跟<code>#define</code>之类一样，直接导入整个命名空间，那么对于下列代码：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=k>using</span> <span class=k>namespace</span> <span class=n>std</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=c1>//此时已经导入了cin
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=n>ifstream</span> <span class=nf>cin</span><span class=p>(</span><span class=s>&#34;xxx.xxx&#34;</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><p>那么<code>cin</code>会局部变量隐藏全局变量，只有我们<strong>定义</strong>的<code>cin</code>起了作用。</p></li><li><p><code>using</code>声明则大有不同，看这个：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-C++ data-lang=C++><span class=line><span class=cl><span class=k>using</span> <span class=n>std</span><span class=o>::</span><span class=n>cin</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=c1>//using声明也导入cin
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=n>ifstream</span> <span class=nf>cin</span><span class=p>(</span><span class=s>&#34;xxx.xxx&#34;</span><span class=p>);</span> <span class=c1>//编译器报错！
+</span></span></span></code></pre></td></tr></table></div></div><p>为什么报错呢？<code>using</code>声明实际上<strong>声明</strong>了<code>cin</code>，也就是引用了<code>std</code>这个命名空间里面的<code>cin</code>定义，然而这个时候我们想自己定义<code>cin</code>的时候就出现了<strong>单一定义</strong>冲突，编译器肯定报错。</p></li></ol><p>从刚才的讨论其实导出一点，就是我们更多时候应该使用<code>using</code>声明或者直接上作用域解析运算符来使用命名空间的变量，而不是一股脑导入。不过做ACM题之类的还是无伤大雅的：）</p><h4 id=4-模板函数>4. 模板函数</h4><p>模板是泛型的内容，像我这样喜欢重复造轮子的人十分喜欢这种概念。</p><p>这个部分主要讨论匹配问题：</p><p>首先考虑如下代码：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=k>template</span><span class=o>&lt;</span><span class=k>typename</span> <span class=n>T</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=kt>void</span> <span class=n>swap</span><span class=p>(</span><span class=n>T</span> <span class=o>&amp;</span><span class=n>a</span><span class=p>,</span> <span class=n>T</span> <span class=o>&amp;</span><span class=n>b</span><span class=p>){</span>
+</span></span><span class=line><span class=cl>    <span class=n>T</span> <span class=n>temp</span> <span class=o>=</span> <span class=n>b</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>b</span> <span class=o>=</span> <span class=n>a</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>a</span> <span class=o>=</span> <span class=n>temp</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>这个相信大家都能看懂，下面讨论的所有代码上方都有如上定义。</p><ol><li><p>实例化</p><p>实例化就是把一个模板函数实例成为一个对应数据类型的函数的过程。这里有两种形式，隐式和显式。</p><p>看如下例子：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=kt>int</span> <span class=n>a</span><span class=p>,</span><span class=n>b</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=kt>float</span> <span class=n>c</span><span class=p>,</span><span class=n>d</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=c1>//case 1
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=n>swap</span><span class=p>(</span><span class=n>a</span><span class=p>,</span> <span class=n>b</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=c1>//case 2
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=n>swap</span><span class=p>(</span><span class=n>c</span><span class=p>,</span> <span class=n>d</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=c1>//case 3
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=n>swap</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;</span><span class=p>(</span><span class=n>a</span><span class=p>,</span> <span class=n>b</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=c1>//case 4, but may not work.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=n>swap</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;</span><span class=p>(</span><span class=n>c</span><span class=p>,</span> <span class=n>d</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>template</span> <span class=kt>void</span> <span class=n>swap</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;</span><span class=p>(</span><span class=kt>int</span><span class=p>,</span> <span class=kt>int</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><p>很简单的，case 1和2都是隐式实例化，当编译器翻译到这一行的时候，就会知道根据传参类型自动生成一个<code>int</code>类型的<code>max</code>函数给case1，生成一个<code>float</code>类型的<code>max</code>函数给case2。而case3和case4都是显式的，这么指定就要求编译器对这两组数据都生成一个<code>int</code>类型的<code>max</code>函数，如大家所知道的，对于case4会出现截断问题，而对于case3就能完美工作。</p><p>最后一行那个代码也是显式实例化，但是我们很少这么用。我们用到显式实例化的地方一般是写了一个类，比如自写List的时候：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=k>template</span><span class=o>&lt;</span><span class=k>typename</span> <span class=n>T</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>List</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=n>T</span> <span class=o>*</span><span class=n>head</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=p>...</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=p>...</span>
+</span></span><span class=line><span class=cl><span class=n>List</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;</span> <span class=n>myList</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p>那这个时候我们使用类的时候，显式指定成员变量类型为<code>int</code>的一个链表<code>myList</code>，就能执行对<code>int</code>的基本操作。</p></li><li><p>具体化</p><p>具体化就是指定一种数据类型下模板函数该怎么做的过程。这个过程必须显式。</p><p>看如下例子：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=k>class</span> <span class=nc>Dorm</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=n>name</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=kt>int</span> <span class=n>roomNumer</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=kt>int</span> <span class=n>bedNumber</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>//declaration
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>template</span> <span class=o>&lt;&gt;</span> <span class=kt>void</span> <span class=n>swap</span><span class=o>&lt;</span><span class=n>Dorm</span><span class=o>&gt;</span><span class=p>(</span><span class=n>Dorm</span> <span class=o>&amp;</span><span class=p>,</span> <span class=n>Dorm</span> <span class=o>&amp;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>//defination
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>template</span> <span class=o>&lt;&gt;</span> <span class=kt>void</span> <span class=n>swap</span><span class=o>&lt;</span><span class=n>Dorm</span><span class=o>&gt;</span><span class=p>(</span><span class=n>Dorm</span> <span class=o>&amp;</span><span class=n>stu1</span><span class=p>,</span> <span class=n>Dorm</span> <span class=o>&amp;</span><span class=n>stu2</span><span class=p>){</span>
+</span></span><span class=line><span class=cl>  <span class=n>swap</span><span class=p>(</span><span class=n>stu1</span><span class=p>.</span><span class=n>roomNumber</span><span class=p>,</span> <span class=n>stu2</span><span class=p>.</span><span class=n>roomNumber</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=n>swap</span><span class=p>(</span><span class=n>stu1</span><span class=p>.</span><span class=n>bedNumber</span><span class=p>,</span> <span class=n>stu2</span><span class=p>.</span><span class=n>bedNumber</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>可以看到，显式具体化需要有函数声明和函数定义，因为具体化，我们必须具体指出函数行为，实际上就是同名函数的一个重载过程。</p><p>上面实现了一个简单的宿舍类，记录了学生姓名，房间号和床号。当我们交换两个学生床位的时候，我们不能直接使用已定义好的模板函数<code>swap</code>，因为这样会交换二者的名字。这样我们必须显式指出面对<code>Dorm</code>类成员的时候，<code>swap</code>函数应有的行为，这个时候我们就使用显示具体化。</p><p>那么为什么我们需要这样做呢？我们不是有重载吗？实际上，这里我也没有详细考证。根据函数匹配来看，使用重载函数的优先级显然高于一个显式具体化的模板函数；而从代码风格来看，给出重载函数也比显式具体模板函数看起来更清晰易懂。所以我个人推荐是对于特殊的情况使用函数重载而不要使用使用显式具体化后的模板函数。（如果有特例未来会更新）。</p></li></ol><h4 id=5编译器函数匹配问题>5.编译器函数匹配问题</h4><p>这个问题是一个大坑，所以我尽可能简单说。</p><p>一般来说，编译器拿到你的代码，会遇到这样的代码：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=c1>//泛型
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>template</span><span class=o>&lt;</span><span class=k>typename</span> <span class=n>T</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl><span class=n>T</span> <span class=n>func</span><span class=p>(</span><span class=n>T</span> <span class=n>a</span><span class=p>,</span> <span class=n>T</span> <span class=n>b</span><span class=p>){</span>
+</span></span><span class=line><span class=cl>  <span class=c1>//some operation...
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>//重载
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=nf>func</span><span class=p>(</span><span class=k>const</span> <span class=kt>int</span> <span class=o>&amp;</span><span class=n>a</span><span class=p>,</span> <span class=k>const</span> <span class=kt>int</span> <span class=o>&amp;</span><span class=n>b</span><span class=p>){</span>
+</span></span><span class=line><span class=cl>  <span class=c1>//also some operation...
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=nf>func</span><span class=p>(</span><span class=k>const</span> <span class=kt>int</span> <span class=o>*</span><span class=n>a</span><span class=p>,</span> <span class=k>const</span> <span class=kt>int</span> <span class=o>*</span><span class=n>b</span><span class=p>){</span>
+</span></span><span class=line><span class=cl>  <span class=c1>//operations!!!!
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>好了，编译器遇到这么多函数，当你调用的时候，它怎么选择合适的函数去匹配呢？</p><p>首先要明确的一点是，假如有两个最适匹配，也就是两种匹配都能做到最简单，那么编译器就会报错。这个很好理解，这两种匹配下面的实现可能有不同，也可能相同，调用可能会带来很严重的副作用，编译器不能冒这个险，所以下面谈优先级都是建立在不会出现两个或以上函数出现同级最适匹配的情况。</p><p>那么我们简单来说，编译器遇到匹配的时候，是这样的步骤：</p><ol><li>创建候选函数列表。</li><li>使用候选列表创建可行列表。</li><li>查找是否有最适匹配。</li></ol><p>从内部来看，创建可行列表的时候编译器还会做隐式类型转换，比如说有一个<code>double</code>的模板，那么明显可以考虑作为<code>float</code>参数的可行函数，因为存在<code>float</code>到<code>double</code>的隐式转换。</p><p>我们重点讨论第三个，援引CPP289页的一个例子：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=c1>//函数签名
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>void</span> <span class=nf>may</span><span class=p>(</span><span class=kt>int</span><span class=p>);</span>                         <span class=c1>//#1
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>float</span> <span class=nf>may</span><span class=p>(</span><span class=kt>float</span><span class=p>,</span> <span class=kt>float</span> <span class=o>=</span> <span class=mi>3</span><span class=p>);</span>           <span class=c1>//#2
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>void</span> <span class=nf>may</span><span class=p>(</span><span class=kt>char</span><span class=p>);</span>                        <span class=c1>//#3
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>char</span> <span class=o>*</span> <span class=nf>may</span><span class=p>(</span><span class=k>const</span> <span class=kt>char</span> <span class=o>*</span><span class=p>);</span>              <span class=c1>//#4
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>char</span> <span class=nf>may</span><span class=p>(</span><span class=k>const</span> <span class=kt>char</span> <span class=o>&amp;</span><span class=p>);</span>                <span class=c1>//#5
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>template</span><span class=o>&lt;</span><span class=k>class</span> <span class=nc>T</span><span class=o>&gt;</span> <span class=kt>void</span> <span class=n>may</span><span class=p>(</span><span class=k>const</span> <span class=n>T</span> <span class=o>&amp;</span><span class=p>);</span> <span class=c1>//#6
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>template</span><span class=o>&lt;</span><span class=k>typename</span> <span class=n>T</span><span class=o>&gt;</span> <span class=kt>void</span> <span class=n>may</span><span class=p>(</span><span class=n>T</span> <span class=o>*</span><span class=p>);</span>    <span class=c1>//#7
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>//函数调用
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=n>may</span><span class=p>(</span><span class=sc>&#39;B&#39;</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><p>从上面来看，<code>may</code>函数被重载了7次，其中#6和#7还是参数模板重载。</p><p>首先看第一步，编译器会直接排除#4和#7，因为传参类型转换过程中不存在整数或者字符变量转换为指针变量的转换（注意，字符变量和字符串数组的区别），这两个就不存在，那么现在剩下5个。</p><p>第二步，生成可行列表之后要找最适匹配，一般来说，以下四条的优先级依次递减：</p><ol><li>完全匹配，常规函数。</li><li>完全匹配，模板函数。</li><li>提升转换，如<code>float</code>到<code>double</code>，<code>short</code>转换为<code>int</code>。</li><li>标准转换，如<code>char</code>转换为<code>int</code>。</li><li>用户定义转换，比如类声明中定义的。</li></ol><p>从这里来看，上述函数的优先级就能这么排序：#3和#5>#6>#1>#2。</p><p>很明显，这里匹配重复了，编译器必定报错。</p><p>最适匹配存在着例外情况。下面只探讨两例：</p><ol><li><p>无关紧要的类型转换</p><p>下面这个表描述了无关紧要的类型转换。</p><table><thead><tr><th style=text-align:center>实参</th><th style=text-align:center>形参</th></tr></thead><tbody><tr><td style=text-align:center><code>Type</code></td><td style=text-align:center><code>Type &</code></td></tr><tr><td style=text-align:center><code>Type &</code></td><td style=text-align:center><code>Type</code></td></tr><tr><td style=text-align:center><code>Type []</code></td><td style=text-align:center><code>* Type</code></td></tr><tr><td style=text-align:center><code>Type (args)</code></td><td style=text-align:center><code>Type (*) (args)</code></td></tr><tr><td style=text-align:center><code>Type</code></td><td style=text-align:center><code>const Type</code></td></tr><tr><td style=text-align:center><code>Type</code></td><td style=text-align:center><code>volatile Type</code></td></tr><tr><td style=text-align:center><code>Type *</code></td><td style=text-align:center><code>const Type *</code></td></tr><tr><td style=text-align:center><code>Type *</code></td><td style=text-align:center><code>volatile Type *</code></td></tr></tbody></table><p>那么也就是说，遇到这个表的时候，会进行这么转换，转换的同时不会影响具体性。</p></li><li><p>具体性</p><p>当编译器去匹配两个函数的时候，会看怎么样的匹配更具体。比如看这个例子：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=c1>//两个模板调用
+</span></span></span><span class=line><span class=cl><span class=c1>//模板签名
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>template</span><span class=o>&lt;</span><span class=k>class</span> <span class=nc>Type</span><span class=o>&gt;</span> <span class=kt>void</span> <span class=n>recycle</span><span class=p>(</span><span class=n>Type</span> <span class=n>t</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=c1>//显式具体化
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>template</span> <span class=o>&lt;&gt;</span> <span class=kt>void</span> <span class=n>recycle</span><span class=o>&lt;</span><span class=n>bolt</span><span class=o>&gt;</span><span class=p>(</span><span class=n>bolt</span> <span class=o>&amp;</span> <span class=n>t</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>//调用
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=n>bolt</span> <span class=n>a</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=n>recycle</span><span class=p>(</span><span class=n>a</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><p>在这种情况下，显式具体化明显比模板更具体，因为它显式指定了要进行的操作。</p><p>再看此例：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=c1>//两个模板调用(2)
+</span></span></span><span class=line><span class=cl><span class=c1>//模板签名
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>template</span><span class=o>&lt;</span><span class=k>class</span> <span class=nc>T</span><span class=o>&gt;</span> <span class=kt>void</span> <span class=n>recycle</span><span class=p>(</span><span class=n>T</span> <span class=n>t</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=k>template</span><span class=o>&lt;</span><span class=k>class</span> <span class=nc>T</span><span class=o>&gt;</span> <span class=kt>void</span> <span class=n>recycle</span><span class=p>(</span><span class=n>T</span><span class=o>*</span> <span class=n>t</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>//调用
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=n>a</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=n>recycle</span><span class=p>(</span><span class=o>&amp;</span><span class=n>a</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><p>会调用哪个？第一个。很简单，当编译器匹配的时候，第一个里面将把<code>T</code>换为<code>int *</code>，这样只需要一次转换。那么有人会问，第二个直接把<code>T</code>换成了<code>int</code>不也是一次转换吗？但是我们要这么看，当编译器在匹配第一个的时候，只用前后<code>T</code>都转换就行，而第二个要检测到参数类型为<code>T*</code>的时候才能知道前面的<code>T</code>应该转换为<code>int</code>，第一个明显更加“无脑”，所以自然第一个转换更少，更具体。</p><p>最后看这个例子：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=c1>//两个函数模板
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>template</span> <span class=o>&lt;</span><span class=k>class</span> <span class=nc>T</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl><span class=kt>void</span> <span class=n>ShowArray</span><span class=p>(</span><span class=n>T</span> <span class=n>arr</span><span class=p>[],</span> <span class=kt>int</span> <span class=n>n</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>template</span> <span class=o>&lt;</span><span class=k>class</span> <span class=nc>T</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl><span class=kt>void</span> <span class=n>ShowArray</span><span class=p>(</span><span class=n>T</span> <span class=o>*</span> <span class=n>arr</span><span class=p>[],</span> <span class=kt>int</span> <span class=n>n</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>//调用
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>double</span> <span class=n>k</span><span class=p>[</span><span class=mi>3</span><span class=p>]</span><span class=o>=</span><span class=p>{</span><span class=mf>1.1</span><span class=p>,</span> <span class=mf>2.2</span><span class=p>,</span> <span class=mf>3.3</span><span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=kt>double</span> <span class=o>*</span><span class=n>pd</span><span class=p>[</span><span class=mi>3</span><span class=p>];</span>
+</span></span><span class=line><span class=cl><span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=mi>3</span><span class=p>;</span> <span class=n>i</span><span class=o>++</span><span class=p>){</span>
+</span></span><span class=line><span class=cl> <span class=n>pd</span><span class=p>[</span><span class=n>i</span><span class=p>]</span><span class=o>=&amp;</span><span class=n>k</span><span class=p>[</span><span class=n>i</span><span class=p>];</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>ShowArray</span><span class=p>(</span><span class=n>pd</span><span class=p>,</span> <span class=mi>3</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><p><code>ShowArray</code>调用的时候会匹配哪一个？第二个。很明显的是，第二个完整的指出了要匹配的参数类型为<code>T * arr[]</code>，和<code>pd</code>完全匹配，更具体。那么实际上第一个也可以匹配，直接把<code>T</code>解释成<code>double *</code>就行，但是明显第二个具体程度强于一。</p></li></ol><p>这个坑就写到这里，感觉可能有些错误，之后有机会再详细谈谈。</p><h4 id=6c11表达式值类型>6.C++11表达式值类型</h4><p>C++11前的标准对于一个表达式只有两种类型，左值(lvalue)和右值(rvalue)，而在C++11更新后（尤其是右值引用的加入后），标准上把原有的两种类型拓展到了五种。下面讲讲区别。</p><p>首先上图：</p><figure><a class=lightgallery href=https://assets.lxdlam.com/img/1665505330_2edefbc7.jpg title=https://assets.lxdlam.com/img/1665505330_2edefbc7.jpg data-thumbnail=https://assets.lxdlam.com/img/1665505330_2edefbc7.jpg data-sub-html="<h2>类型派生图</h2>"><img class=lazyload src=/svg/loading.min.svg data-src=https://assets.lxdlam.com/img/1665505330_2edefbc7.jpg data-srcset="https://assets.lxdlam.com/img/1665505330_2edefbc7.jpg, https://assets.lxdlam.com/img/1665505330_2edefbc7.jpg 1.5x, https://assets.lxdlam.com/img/1665505330_2edefbc7.jpg 2x" data-sizes=auto alt=https://assets.lxdlam.com/img/1665505330_2edefbc7.jpg width=100%></a><figcaption class=image-caption>类型派生图</figcaption></figure><p>下面分开介绍：</p><p>最基本类型：</p><ol><li><p>左值（lvalue）</p><p>左值其实很简单，是一个变量或者函数名。这里要注意下面这几种情况也是左值：</p><ol><li>内建赋值、复合赋值、前置自增、前置自减表达式，如<code>a+=b</code>、<code>--a</code>。</li><li>左值引用返回值的表达式，如上面的<code>getline</code>函数。</li><li>内建逗号表达式，如<code>a, b</code>，其中b是左值。</li><li>字符串字面量，如<code>"Hello, World!"</code>（很好理解，C++内部把字符串还是按C风格存储，即<code>const char *[]</code>类型）。</li></ol></li><li><p>纯右值（prvalue）</p><p>纯右值的出现完全是因为C++11新增的右值引用而出现的，实际上就是把之前的右值概念搬了一下，大部分都是右值。右值引用之后再谈。要注意下面几种情况也是纯右值：</p><ol><li>除字符串之外的字面量。如<code>42</code>、<code>nullptr</code>。</li><li>内建的后置自增、后置自减表达式。如<code>a++</code>。</li><li>内建的取地址运算符。如<code>&str</code>。</li><li>内建逗号表达式，如<code>a, b</code>，其中b是右值。</li><li><code>this</code>指针。</li><li>lambda表达式。</li></ol></li><li><p>亡值（xvalue）</p><p>这个东西就有点炫酷了，这个是C++11引入的新类型。命名来源是“eXpiring"，从名字就能知道，亡值就是说即将到作用域终点，从而可以被自动内存管理下回收利用的值。这个值只会是自动内存管理的产物，不会是手动申请的堆内存的产物。</p><p>以下的表达式为亡值：</p><ol><li><p>返回对象为对象的右值引用的函数或者重载运算符，比如<code>std::move(x)</code>。</p></li><li><p><code>a[n]</code>，内建的下标表达式，操作数之一是数组右值。</p><p>这个要看下标运算符重载。内建的下标运算符是这么一个重载：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=n>T</span><span class=o>&amp;</span> <span class=k>operator</span><span class=p>[](</span><span class=n>T</span><span class=o>*</span><span class=p>,</span> <span class=n>std</span><span class=o>::</span><span class=n>ptrdiff_t</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=n>T</span><span class=o>&amp;</span> <span class=k>operator</span><span class=p>[](</span><span class=n>std</span><span class=o>::</span><span class=n>ptrdiff_t</span><span class=p>,</span> <span class=n>T</span><span class=o>*</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><p>看到重载知道这是一个引用返回，当操作数是数组右值的时候就返回亡值引用。</p></li><li><p><code>a.m</code>，对象成员表达式，其中 <code>a</code> 是右值且 <code>m</code> 是非引用类型的非静态数据成员。</p></li><li><p><code>a.*mp</code>，对象的成员指针表达式，其中 <code>a</code> 为右值且 <code>mp</code> 为指向数据成员的指针。</p></li><li><p><code>a ? b : c</code>，对于某些 <code>a</code>、<code>b</code> 和 <code>c</code> 的三元条件表达式。</p></li><li><p>转换为对象的右值引用类型的强制转换表达式，例如<code>static_cast&lt;char&&>(x)</code>。</p><p>这个从显式实例化就知道，这个转成了一个右值引用，所以必返回亡值。</p></li></ol></li></ol><p>混合类型：</p><ol><li><p>泛左值（glvalue）</p><p>泛左值要么是左值要么是亡值，可以通过转换隐式转换变成纯右值，包括左值到右值、数组到指针或者函数到指针的转换。</p></li><li><p>右值（rvalue）</p><p>右值要么是亡值要么是纯右值。很明显的，所有右值都不允许取地址运算，也不能作为任何内建的赋值或者复合赋值运算符的左操作数。</p></li></ol><p>注意事项：</p><ol><li>左值可以被取地址，但是亡值不行。也就是说，不是泛左值都能被取地址。</li></ol><p>这部分现在只能写这么多，未来理解更深了可能会提出来再写。</p><p>第一次先写这么多吧，写着写着自己都惊讶怎么这么多了。但是其实还有很多没写，比如作用域链接性之类的问题，这些坑下次再填吧，我也写不动了。</p><p>没有Markdown要我用Word排版这个样子发篇博客我还不如跳楼。</p><p>C++ is powerful, coding is fun!</p></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>更新于 2023-01-04</span></div></div><div class=post-info-line><div class=post-info-md></div><div class=post-info-share><span><a href=javascript:void(0); title="分享到 Twitter" data-sharer=twitter data-url=https://blog.lxdlam.com/post/f0cd48b4/ data-title=CPP学习笔记(1) data-hashtags="技术,技术笔记,C++,C++ Primer Plus,读书笔记"><i class="fab fa-twitter fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Facebook" data-sharer=facebook data-url=https://blog.lxdlam.com/post/f0cd48b4/ data-hashtag=技术><i class="fab fa-facebook-square fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Instapaper" data-sharer=instapaper data-url=https://blog.lxdlam.com/post/f0cd48b4/ data-title=CPP学习笔记(1) data-description><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/instapaper.svg aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Pocket" data-sharer=pocket data-url=https://blog.lxdlam.com/post/f0cd48b4/><i class="fab fa-get-pocket fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 微博" data-sharer=weibo data-url=https://blog.lxdlam.com/post/f0cd48b4/ data-title=CPP学习笔记(1)><i class="fab fa-weibo fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Evernote" data-sharer=evernote data-url=https://blog.lxdlam.com/post/f0cd48b4/ data-title=CPP学习笔记(1)><i class="fab fa-evernote fa-fw" aria-hidden=true></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw" aria-hidden=true></i>&nbsp;<a href=/tags/%E6%8A%80%E6%9C%AF/>技术</a>,&nbsp;<a href=/tags/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/>技术笔记</a>,&nbsp;<a href=/tags/c++/>C++</a>,&nbsp;<a href=/tags/c++-primer-plus/>C++ Primer Plus</a>,&nbsp;<a href=/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/>读书笔记</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span></section></div><div class=post-nav><a href=/post/d4004311/ class=prev rel=prev title=换Linux了><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>换Linux了</a>
+<a href=/post/8ed03f38/ class=next rel=next title=更换评论系统>更换评论系统<i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div></div><div id=comments><div id=gitalk class=comment></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://github.com/gitalk/gitalk></a>Gitalk</a>.</noscript></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>由 <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> 强力驱动 | 主题 - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2017 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://blog.lxdlam.com target=_blank>Ramen</a></span>&nbsp;|&nbsp;<span class=license><a rel="license noopener" href=https://creativecommons.org/licenses/by-nc-sa/4.0/ target=_blank>署名-非商业性使用-相同方式共享 4.0 国际</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:10},comment:{gitalk:{admin:["lxdlam"],clientID:"40880a3ee3a1d7fea2a5",clientSecret:"3a978fea33d995cf18dbe99a7f3fac5d9ffc91ac",id:"2017-03-23T18:18:39+08:00",owner:"lxdlam",repo:"blog.lxdlam.com-comment",title:"CPP学习笔记(1)"}},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1}}</script><script type=text/javascript src=/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","UA-92306989-1",{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=UA-92306989-1" async></script></body></html>

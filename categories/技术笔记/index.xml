@@ -1,0 +1,44 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>技术笔记 - 分类 - Ramen's Box</title><link>https://blog.lxdlam.com/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/</link><description>技术笔记 - 分类 - Ramen's Box</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>lxdlam@gmail.com (Ramen)</managingEditor><webMaster>lxdlam@gmail.com (Ramen)</webMaster><copyright>本站所有内容基于署名-非商业性使用-相同方式共享 4.0 国际协议（CC BY-NC-SA 4.0）给出许可</copyright><lastBuildDate>Tue, 03 Jan 2023 23:09:55 +0800</lastBuildDate><atom:link href="https://blog.lxdlam.com/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/" rel="self" type="application/rss+xml"/><item><title>SQL N 个组中的 Top-K 问题</title><link>https://blog.lxdlam.com/post/a149ebee/</link><pubDate>Tue, 03 Jan 2023 23:09:55 +0800</pubDate><author>Ramen</author><guid>https://blog.lxdlam.com/post/a149ebee/</guid><description></description></item><item><title>任天堂 NPLN 服务架构演讲学习笔记</title><link>https://blog.lxdlam.com/post/24e3aa77/</link><pubDate>Mon, 10 Oct 2022 00:50:32 +0800</pubDate><author>Ramen</author><guid>https://blog.lxdlam.com/post/24e3aa77/</guid><description>&lt;p>NPLN 是任天堂的新一代的通用多人在线游戏网络系统，旨在替代自 3DS 时代就使用的 NEX 系统，采用全面的现代架构来进行开发，目标是在玩家无感知的情况下替换掉 NEX。NPLN 自 2018 年开始开发，全面基于 Google Cloud，并于 2021 年首先在《怪物猎人：崛起》中进行使用。&lt;/p></description></item><item><title>Rust 的包装类型</title><link>https://blog.lxdlam.com/post/b63a9600/</link><pubDate>Tue, 24 Nov 2020 02:16:42 +0800</pubDate><author>Ramen</author><guid>https://blog.lxdlam.com/post/b63a9600/</guid><description><![CDATA[<p>对于一门对内存控制足够精细的语言来说，值类型与引用类型的区别是十分重要的：值类型通常意味着较低的拷贝成本，通常来说，这样的类型被分配在栈上（当然，对于 C/C++ 来说，我们可以在堆上直接分配一个值类型对象，如 <code>int</code>），而引用类型则通常分配在堆上，我们需要用一个包装过的对象去维护。</p>
+<p>在 Rust 中，值类型和引用类型的界限在语言上提供了很明确的区分，而为了避免 C/C++ 中用户可以不受限制使用裸指针的情况，Rust 将很多裸指针操作都包在了 <code>unsafe</code> 块内，用户使用时必须对这种行为有足够的认知。当然，当用户需要使用指针，或者说引用类型的时候，Rust 也提供了 7 种包装类型来帮助用户更好的管理堆上的内存。</p>
+<p>然而，Rust 官方教程和文档对这 7 种包装类型的介绍有很多容易混淆之处，同时网上的很多文章也已经完全脱离了最新版 Rust 的功能描述（如很多文章仍然描述 <code>Cell</code> 只接受实现了 <code>Copy</code> 的类型），导致很多初学者学习时容易产生迷惑和误用。这篇文章是我在复习 Rust 时重新学习包装类型相关时做出的笔记，希望能更好的帮助大家理解 Rust 的包装类型。</p>
+<blockquote>
+<p>本文写作时的 Rust 版本为 Stable Channel 1.48.0。</p>
+</blockquote>]]></description></item><item><title>邱奇计数 (2)</title><link>https://blog.lxdlam.com/post/0a75011e/</link><pubDate>Mon, 21 May 2018 11:20:52 +0800</pubDate><author>Ramen</author><guid>https://blog.lxdlam.com/post/0a75011e/</guid><description><![CDATA[<p>忙过了这一茬，趁着下一茬还没来，我先填填坑～</p>
+<p>在<a href="https://blog.lxdlam.com/post/2d31b5ef/" target="_blank" rel="noopener noreffer ">上一篇文章</a>里面，我们谈到了如何去表达一个自然数系统：0以及后继，然后写出了邱奇计数法中的0和后继表达方式。作为一种验证和转化手段，我们也描述了邱奇化和去邱奇化的有关内容，更好的去验证我们的结果。</p>
+<p>然而，一个代数系统，光有数可远远不够，我们还需要有各种运算。</p>
+<p>今天，让我们来谈谈运算的内容，除了加法、乘法、乘方以外，我还将给你展示使用代换模型来展开函数，从而去更好的理解整个运算过程。</p>
+<p>准备好了吗？让我们开始吧！</p>]]></description></item><item><title>邱奇计数 (1)</title><link>https://blog.lxdlam.com/post/2d31b5ef/</link><pubDate>Tue, 03 Apr 2018 23:37:02 +0800</pubDate><author>Ramen</author><guid>https://blog.lxdlam.com/post/2d31b5ef/</guid><description><![CDATA[<p>让我们来谈谈抽象。</p>
+<p>什么是抽象？几乎所有程序员都听说过。不就是把一些对应的实体抽象成一些数据结构啊，算法啊或者设计模式之类的，然后写成代码呗。</p>
+<p>但是你真的懂抽象的威力吗？我们只有数据结构和算法等抽象吗？能不能不使用任何数据结构去表达一个二元组呢？</p>
+<p>这一系列短文有3篇（可能），我将从Python的基础入手，带你简单入门Lambda表达式，然后走进邱奇计数的世界，见证函数式编程的高阶抽象能力。</p>
+<p>准备好了吗？让我们开始吧。</p>]]></description></item><item><title>初尝Flutter</title><link>https://blog.lxdlam.com/post/3885f5e9/</link><pubDate>Mon, 05 Mar 2018 00:53:23 +0800</pubDate><author>Ramen</author><guid>https://blog.lxdlam.com/post/3885f5e9/</guid><description><![CDATA[<p>我是大概这周的前几天知道<a href="https://www.dartlang.org/dart-2" target="_blank" rel="noopener noreffer ">Dart 2</a>要推出而且<a href="https://flutter.io/" target="_blank" rel="noopener noreffer ">Flutter</a>进入Beta的。</p>
+<p>说实话，Dart我有所耳闻，虽然我是一个Google的粉丝，但是话还是要说清楚，我真不认为Google在设计语言上有什么优势，甚至是并不擅长设计语言的（Go语言我浅尝辄止），而且Dart本身设计我认为也有问题（居然同时存在<code>const</code>和<code>final</code>关键字），我也只是粗略的看了一下语法就停了。</p>
+<p>然而，在今晚的旅程过后，我决定把Flutter和Dart加进学习日程表（虽然优先级不会太高），因为Flutter颠覆了我这个“零经验”移动开发者的观念。这篇文章，就让我零零散散的谈谈今晚的旅程。</p>]]></description></item><item><title>拥抱f-string</title><link>https://blog.lxdlam.com/post/1b2fd89a/</link><pubDate>Fri, 09 Feb 2018 22:01:28 +0800</pubDate><author>Ramen</author><guid>https://blog.lxdlam.com/post/1b2fd89a/</guid><description>&lt;p>字符串从来就是计算机数据中最重要的一种基本类型。对于字符串，我们有各种各样的话题进行讨论。然而，字符串最基本的操作之一：打印和格式化，是最重要的话题之一。本文主要探讨Python3.6以来新增的字符串格式化方法&lt;code>f-string&lt;/code>，以及一些相关的内容。&lt;/p></description></item><item><title>函数式编程——Think differently（1）</title><link>https://blog.lxdlam.com/post/b0ce9bee/</link><pubDate>Thu, 14 Sep 2017 22:51:29 +0800</pubDate><author>Ramen</author><guid>https://blog.lxdlam.com/post/b0ce9bee/</guid><description><![CDATA[<h2 id="0-写在最前面">0. 写在最前面</h2>
+<p>很久之前就想写一个函数式编程（Functional Programming，下文简称FP）的文章了。</p>
+<p>最早听说函数式编程是大一下开学，看C++11标准的时候看到了一段这样的代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">f</span> <span class="o">=</span> <span class="p">[](</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">f</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span> <span class="c1">// =&gt; 10
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>感觉很神奇，没有见过这种表达式，于是深入了解了一波。</p>
+<p>这便一发不可收拾。</p>
+<p>FP是一个很大的话题，内容非常深，涉及到很多计算机的底层知识，实在是大开眼界。</p>
+<p>闭着眼睛，硬着头皮学了这么久，也觉得能得出一点东西。就写一个简短的系列，力求能简单了解FP吧。</p>
+<p>在这个过程中，也受到了很多人的帮助，很抱歉不能一一列出，如有遗漏，请告诉我。</p>
+<p>对了，本文可能使用很多语言来描述，但是主要的还是<code>Python</code>、<code>Haskell</code>、<code>C++</code>和<code>Java</code>。我会解释清楚必要的前置知识，力求不影响代码理解。</p>
+<p>那么，FP之旅开始了。</p>]]></description></item><item><title>Windows下的random_device</title><link>https://blog.lxdlam.com/post/a1ef2058/</link><pubDate>Mon, 01 May 2017 01:59:31 +0800</pubDate><author>Ramen</author><guid>https://blog.lxdlam.com/post/a1ef2058/</guid><description><![CDATA[<h2 id="缘起">缘起</h2>
+<p>整个事情的起因是这样的：</p>
+<p>C++第四个实验要生成一组随机序列数，众所周知，<code>rand()</code>函数用的线性同余法生成随机数，但是这个随机数实际上是一个伪随机数。然后我就想用<code>std::random_device</code>来生成真随机数。然而在Windows下，GCC的表现却让我大跌眼镜。编译环境是MinGW gcc5.3.0。</p>]]></description></item><item><title>A Brief Tutorial Of Git</title><link>https://blog.lxdlam.com/post/25568e5d/</link><pubDate>Wed, 19 Apr 2017 00:47:32 +0800</pubDate><author>Ramen</author><guid>https://blog.lxdlam.com/post/25568e5d/</guid><description>&lt;p>上一篇Gogs的搭建写完之后，我稍微想了一下，可能很多人还是不懂什么是git，我们怎么用git。所以写一篇简单的文章来介绍一下什么是git和怎么使用git。&lt;/p>
+&lt;p>要注意，这篇教程内容并不多，只会教你上路和简单的问题处理，如果你想深入学习，文末会给出更多信息。&lt;/p></description></item></channel></rss>

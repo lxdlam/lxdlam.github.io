@@ -1,0 +1,39 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>技术 - 标签 - Ramen's Box</title><link>https://blog.lxdlam.com/tags/%E6%8A%80%E6%9C%AF/</link><description>技术 - 标签 - Ramen's Box</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>lxdlam@gmail.com (Ramen)</managingEditor><webMaster>lxdlam@gmail.com (Ramen)</webMaster><copyright>本站所有内容基于署名-非商业性使用-相同方式共享 4.0 国际协议（CC BY-NC-SA 4.0）给出许可</copyright><lastBuildDate>Mon, 30 Oct 2017 12:36:24 +0800</lastBuildDate><atom:link href="https://blog.lxdlam.com/tags/%E6%8A%80%E6%9C%AF/" rel="self" type="application/rss+xml"/><item><title>Rust学习笔记(1)</title><link>https://blog.lxdlam.com/post/3daa99e9/</link><pubDate>Mon, 30 Oct 2017 12:36:24 +0800</pubDate><author>Ramen</author><guid>https://blog.lxdlam.com/post/3daa99e9/</guid><description><![CDATA[<p><a href="https://www.rust-lang.org/zh-CN/" target="_blank" rel="noopener noreffer ">Rust</a>是开源大佬Mozilla在2014年发布的一款面向系统级应用和底层应用开发的程序设计语言。在这之前，Google在2009年发布了<a href="https://golang.org/" target="_blank" rel="noopener noreffer ">Go</a>语言，并且取得了不小的成功，比如Docker，这款极为强大且好用的容器引擎是使用Go构建的。不过Rust在发布的三年后也已经收获了一批拥趸，第一个面向很多用户的项目，Firefox Quantum版本中的CSS引擎（是用Rust写的）也即将发布了。我已经看过不少PL大师和一些搞编译器部分的大佬在狂吹Rust，Rust的社区也日渐壮大。</p>]]></description></item><item><title>函数式编程——Think differently（1）</title><link>https://blog.lxdlam.com/post/b0ce9bee/</link><pubDate>Thu, 14 Sep 2017 22:51:29 +0800</pubDate><author>Ramen</author><guid>https://blog.lxdlam.com/post/b0ce9bee/</guid><description><![CDATA[<h2 id="0-写在最前面">0. 写在最前面</h2>
+<p>很久之前就想写一个函数式编程（Functional Programming，下文简称FP）的文章了。</p>
+<p>最早听说函数式编程是大一下开学，看C++11标准的时候看到了一段这样的代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">f</span> <span class="o">=</span> <span class="p">[](</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">f</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span> <span class="c1">// =&gt; 10
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>感觉很神奇，没有见过这种表达式，于是深入了解了一波。</p>
+<p>这便一发不可收拾。</p>
+<p>FP是一个很大的话题，内容非常深，涉及到很多计算机的底层知识，实在是大开眼界。</p>
+<p>闭着眼睛，硬着头皮学了这么久，也觉得能得出一点东西。就写一个简短的系列，力求能简单了解FP吧。</p>
+<p>在这个过程中，也受到了很多人的帮助，很抱歉不能一一列出，如有遗漏，请告诉我。</p>
+<p>对了，本文可能使用很多语言来描述，但是主要的还是<code>Python</code>、<code>Haskell</code>、<code>C++</code>和<code>Java</code>。我会解释清楚必要的前置知识，力求不影响代码理解。</p>
+<p>那么，FP之旅开始了。</p>]]></description></item><item><title>Ramen的算法笔记.1</title><link>https://blog.lxdlam.com/post/8ecb99c8/</link><pubDate>Sat, 13 May 2017 22:45:06 +0800</pubDate><author>Ramen</author><guid>https://blog.lxdlam.com/post/8ecb99c8/</guid><description><![CDATA[<p>这个系列自从出了个预告，然后就什么都没有了。</p>
+<p>哎，这段时间好划啊，什么都没研究进去，只能吃吃老本了。</p>
+<p>最近也是忙的要死，什么技术性文章都没写，是时候动笔了。</p>
+<p>（DDM会复活的，相信我！！！</p>
+<p>对了，这篇文章开始结构要发生改变，预告里面那个结构太<del>智障</del>不实用了。</p>]]></description></item><item><title>Linux下Wifi热点开启</title><link>https://blog.lxdlam.com/post/58bcf4a2/</link><pubDate>Thu, 04 May 2017 16:05:31 +0800</pubDate><author>Ramen</author><guid>https://blog.lxdlam.com/post/58bcf4a2/</guid><description><![CDATA[<p>实验室只有有线网络，用Windows自然很方便，但是Linux下就很麻烦。</p>
+<p>试过网上流传的各种方法，也尝试去装了<code>ad-hotspot</code>，都没效果。</p>
+<p>今天去<code>ad-hotspot</code>Github页面看到了<code>create_ap</code>这个项目，很快就把热点开起来了，简单记录一下。</p>]]></description></item><item><title>Windows下的random_device</title><link>https://blog.lxdlam.com/post/a1ef2058/</link><pubDate>Mon, 01 May 2017 01:59:31 +0800</pubDate><author>Ramen</author><guid>https://blog.lxdlam.com/post/a1ef2058/</guid><description><![CDATA[<h2 id="缘起">缘起</h2>
+<p>整个事情的起因是这样的：</p>
+<p>C++第四个实验要生成一组随机序列数，众所周知，<code>rand()</code>函数用的线性同余法生成随机数，但是这个随机数实际上是一个伪随机数。然后我就想用<code>std::random_device</code>来生成真随机数。然而在Windows下，GCC的表现却让我大跌眼镜。编译环境是MinGW gcc5.3.0。</p>]]></description></item><item><title>A Brief Tutorial Of Git</title><link>https://blog.lxdlam.com/post/25568e5d/</link><pubDate>Wed, 19 Apr 2017 00:47:32 +0800</pubDate><author>Ramen</author><guid>https://blog.lxdlam.com/post/25568e5d/</guid><description>&lt;p>上一篇Gogs的搭建写完之后，我稍微想了一下，可能很多人还是不懂什么是git，我们怎么用git。所以写一篇简单的文章来介绍一下什么是git和怎么使用git。&lt;/p>
+&lt;p>要注意，这篇教程内容并不多，只会教你上路和简单的问题处理，如果你想深入学习，文末会给出更多信息。&lt;/p></description></item><item><title>GCC 6.3.0 手动编译安装</title><link>https://blog.lxdlam.com/post/fa1ca4ee/</link><pubDate>Sat, 15 Apr 2017 20:25:31 +0800</pubDate><author>Ramen</author><guid>https://blog.lxdlam.com/post/fa1ca4ee/</guid><description><![CDATA[<p>GCC，即The GNU Compiler Collection，是GNU计划的最关键组成部分。</p>
+<p>GCC是一整套编译器的集合，大家使用的Code::Blocks使用的就是由MinGW提供的GCC编译套件。</p>
+<p>刚刚看Debian 9的新闻的时候发现Debian 9将升级GCC到6，我看了一下，最让人振奋的是编译标准从C++98提升到了C++14，要知道C++11后这门语言已经大有不同，所以这个升级很让我心动。</p>
+<p>GCC作为Linux最核心的一部分，没有提供现成的软件包直接安装，所以写一遍简短的笔记记一下安装过程，也给后来人参考。</p>
+<p>文章发布时GCC 6最新的Release版本是6.3.0。安装的系统是Elementary OS 0.4，基于Ubuntu 16.04。</p>]]></description></item><item><title>CPP学习笔记(1)</title><link>https://blog.lxdlam.com/post/f0cd48b4/</link><pubDate>Thu, 23 Mar 2017 18:18:39 +0800</pubDate><author>Ramen</author><guid>https://blog.lxdlam.com/post/f0cd48b4/</guid><description>《C++ Primer Plus》读书笔记（1） 学校发的C++教材是那本比较经典的《C++大学基础教程（第五版）》，对于我来说内容太少了，所以C++课我都</description></item><item><title>Gogs搭建纪实</title><link>https://blog.lxdlam.com/post/dc28a2db/</link><pubDate>Sun, 05 Mar 2017 00:00:48 +0800</pubDate><author>Ramen</author><guid>https://blog.lxdlam.com/post/dc28a2db/</guid><description>一直想搭一个私有Git，加上刚刚加了个项目组，组内希望用私有Git做版本控制——这个任务就落到我头上来了。 本来想搭Gitlab的，然后我看了</description></item></channel></rss>

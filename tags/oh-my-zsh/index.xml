@@ -1,0 +1,9 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>oh-my-zsh - 标签 - Ramen's Box</title><link>https://blog.lxdlam.com/tags/oh-my-zsh/</link><description>oh-my-zsh - 标签 - Ramen's Box</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>lxdlam@gmail.com (Ramen)</managingEditor><webMaster>lxdlam@gmail.com (Ramen)</webMaster><copyright>本站所有内容基于署名-非商业性使用-相同方式共享 4.0 国际协议（CC BY-NC-SA 4.0）给出许可</copyright><lastBuildDate>Mon, 15 May 2017 21:50:04 +0800</lastBuildDate><atom:link href="https://blog.lxdlam.com/tags/oh-my-zsh/" rel="self" type="application/rss+xml"/><item><title>oh my zsh!!!</title><link>https://blog.lxdlam.com/post/517fc966/</link><pubDate>Mon, 15 May 2017 21:50:04 +0800</pubDate><author>Ramen</author><guid>https://blog.lxdlam.com/post/517fc966/</guid><description><![CDATA[<p>Linux下接触最多的就是Shell了，之前一直用默认的bash，虽然早就听说过zsh，但是大家都知道的，懒。</p>
+<p>今天看阮老师博客的时候看到他介绍<a href="http://www.ruanyifeng.com/blog/2017/05/fish_shell.html" target="_blank" rel="noopener noreffer ">fish shell</a>，评论刚好有人提到zsh，我想了一下今晚没多少事就搞了一波，现在我已经zsh上瘾了，无法再回到bash了！</p>
+<p>上一张我现在的shell截图：</p>
+<figure><a class="lightgallery" href="https://assets.lxdlam.com/img/1665505249_d74aaf0b.png" title="https://assets.lxdlam.com/img/1665505249_d74aaf0b.png" data-thumbnail="https://assets.lxdlam.com/img/1665505249_d74aaf0b.png" data-sub-html="<h2>Shell</h2>">
+        
+    </a><figcaption class="image-caption">Shell</figcaption>
+    </figure>
+<p>就写一篇简单的教程怎么定制zsh吧！</p>
+<p>注：Windows用户就别看了，我的环境是Elementary v0.4， 基于Ubuntu 16.04.</p>]]></description></item></channel></rss>

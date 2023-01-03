@@ -1,0 +1,141 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>函数式编程——Think differently（1） - Ramen's Box</title><meta name=Description content="Ramen's stuff box"><meta property="og:title" content="函数式编程——Think differently（1）"><meta property="og:description" content="0. 写在最前面
+很久之前就想写一个函数式编程（Functional Programming，下文简称FP）的文章了。
+最早听说函数式编程是大一下开学，看C++11标准的时候看到了一段这样的代码：
+
+
+1
+2
+3
+4
+5
+
+
+auto f = [](int x) {
+        return x + 5;
+};
+
+f(5); // => 10
+
+
+感觉很神奇，没有见过这种表达式，于是深入了解了一波。
+这便一发不可收拾。
+FP是一个很大的话题，内容非常深，涉及到很多计算机的底层知识，实在是大开眼界。
+闭着眼睛，硬着头皮学了这么久，也觉得能得出一点东西。就写一个简短的系列，力求能简单了解FP吧。
+在这个过程中，也受到了很多人的帮助，很抱歉不能一一列出，如有遗漏，请告诉我。
+对了，本文可能使用很多语言来描述，但是主要的还是Python、Haskell、C++和Java。我会解释清楚必要的前置知识，力求不影响代码理解。
+那么，FP之旅开始了。"><meta property="og:type" content="article"><meta property="og:url" content="https://blog.lxdlam.com/post/b0ce9bee/"><meta property="og:image" content="https://blog.lxdlam.com/logo.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2017-09-14T22:51:29+08:00"><meta property="article:modified_time" content="2023-01-04T02:01:57+08:00"><meta property="og:site_name" content="My cool site"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://blog.lxdlam.com/logo.png"><meta name=twitter:title content="函数式编程——Think differently（1）"><meta name=twitter:description content="0. 写在最前面
+很久之前就想写一个函数式编程（Functional Programming，下文简称FP）的文章了。
+最早听说函数式编程是大一下开学，看C++11标准的时候看到了一段这样的代码：
+
+
+1
+2
+3
+4
+5
+
+
+auto f = [](int x) {
+        return x + 5;
+};
+
+f(5); // => 10
+
+
+感觉很神奇，没有见过这种表达式，于是深入了解了一波。
+这便一发不可收拾。
+FP是一个很大的话题，内容非常深，涉及到很多计算机的底层知识，实在是大开眼界。
+闭着眼睛，硬着头皮学了这么久，也觉得能得出一点东西。就写一个简短的系列，力求能简单了解FP吧。
+在这个过程中，也受到了很多人的帮助，很抱歉不能一一列出，如有遗漏，请告诉我。
+对了，本文可能使用很多语言来描述，但是主要的还是Python、Haskell、C++和Java。我会解释清楚必要的前置知识，力求不影响代码理解。
+那么，FP之旅开始了。"><meta name=application-name content="Ramen's Box"><meta name=apple-mobile-web-app-title content="Ramen's Box"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://blog.lxdlam.com/post/b0ce9bee/><link rel=prev href=https://blog.lxdlam.com/post/2b6bf502/><link rel=next href=https://blog.lxdlam.com/post/115f5153/><link rel=stylesheet href=/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><meta name=google-site-verification content="UA-92306989-1"><meta name=baidu-site-verification content="092774cb717e6851abd2d7fc55835b40"><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"函数式编程——Think differently（1）","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/blog.lxdlam.com\/post\/b0ce9bee\/"},"image":["https:\/\/blog.lxdlam.com\/images\/Apple-Devices-Preview.png"],"genre":"posts","keywords":"FP, 函数式编程, Functional Programming, 技术","wordcount":3005,"url":"https:\/\/blog.lxdlam.com\/post\/b0ce9bee\/","datePublished":"2017-09-14T22:51:29+08:00","dateModified":"2023-01-04T02:01:57+08:00","license":"本站所有内容基于署名-非商业性使用-相同方式共享 4.0 国际协议（CC BY-NC-SA 4.0）给出许可","publisher":{"@type":"Organization","name":"Ramen","logo":"https:\/\/blog.lxdlam.com\/images\/avatar.png"},"author":{"@type":"Person","name":"Ramen"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="Ramen's Box"><span class=header-title-pre><i class='fas fa-star'></i></span>Ramen's Box</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>所有文章 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=/about/>关于 </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="Ramen's Box"><span class=header-title-pre><i class='fas fa-star'></i></span>Ramen's Box</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><a class=menu-item href=/posts/ title>所有文章</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/about/ title>关于</a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>目录</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">函数式编程——Think differently（1）</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=https://blog.lxdlam.com title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Ramen</a></span>&nbsp;<span class=post-category>收录于 <a href=/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/><i class="far fa-folder fa-fw" aria-hidden=true></i>技术笔记</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2017-09-14>2017-09-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;约 3005 字&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;预计阅读 6 分钟&nbsp;</div></div><div class="details toc" id=toc-static data-kept><div class="details-summary toc-title"><span>目录</span>
+<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#0-写在最前面>0. 写在最前面</a></li><li><a href=#1-何为函数式>1. 何为函数式？</a><ul><li><a href=#i命令式编程>i.命令式编程</a></li><li><a href=#ii-函数式编程>ii. 函数式编程</a></li><li><a href=#iii-开头代码>iii. 开头代码</a></li></ul></li><li><a href=#下期预告>下期预告</a></li></ul></nav></div></div><div class=content id=content><h2 id=0-写在最前面>0. 写在最前面</h2><p>很久之前就想写一个函数式编程（Functional Programming，下文简称FP）的文章了。</p><p>最早听说函数式编程是大一下开学，看C++11标准的时候看到了一段这样的代码：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=k>auto</span> <span class=n>f</span> <span class=o>=</span> <span class=p>[](</span><span class=kt>int</span> <span class=n>x</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>x</span> <span class=o>+</span> <span class=mi>5</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>f</span><span class=p>(</span><span class=mi>5</span><span class=p>);</span> <span class=c1>// =&gt; 10
+</span></span></span></code></pre></td></tr></table></div></div><p>感觉很神奇，没有见过这种表达式，于是深入了解了一波。</p><p>这便一发不可收拾。</p><p>FP是一个很大的话题，内容非常深，涉及到很多计算机的底层知识，实在是大开眼界。</p><p>闭着眼睛，硬着头皮学了这么久，也觉得能得出一点东西。就写一个简短的系列，力求能简单了解FP吧。</p><p>在这个过程中，也受到了很多人的帮助，很抱歉不能一一列出，如有遗漏，请告诉我。</p><p>对了，本文可能使用很多语言来描述，但是主要的还是<code>Python</code>、<code>Haskell</code>、<code>C++</code>和<code>Java</code>。我会解释清楚必要的前置知识，力求不影响代码理解。</p><p>那么，FP之旅开始了。</p><hr><h2 id=1-何为函数式>1. 何为函数式？</h2><p>在讨论这个问题之前，我们先看两段代码：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=c1>// Example 1: Recursion, Functional
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=nf>sum</span><span class=p>(</span><span class=kt>int</span> <span class=n>n</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=n>n</span> <span class=o>==</span> <span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>else</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>n</span> <span class=o>+</span> <span class=n>sum</span><span class=p>(</span><span class=n>n</span> <span class=o>-</span> <span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Example 2: Loop, Imperative
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=nf>sum</span><span class=p>(</span><span class=kt>int</span> <span class=n>n</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=n>res</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;=</span> <span class=n>n</span><span class=p>;</span> <span class=n>i</span><span class=o>++</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>res</span> <span class=o>+=</span> <span class=n>i</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>res</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>这两段代码干了什么呢？很简单，就是计算$S(n)=1+2+&mldr;+n$。</p><p>那么，这两段代码区别在哪儿？也很简单，就是一个是递归，一个是循环。</p><p>这里我能告诉你，第一段代码是更加函数式的写法，第二段代码是更加命令式的写法。</p><p>“这不都是C++代码吗？哪儿有函数式？你说那个什么Lambda Expession也没有啊？”</p><p>别急，让我们先来看看这二者的区别。</p><h3 id=i命令式编程>i.命令式编程</h3><p>让我们先复习一下什么是图灵机。</p><blockquote><p><strong>图灵机</strong>（英语：Turing machine），又称<strong>确定型图灵机</strong>，是英国数学家艾伦·图灵于1936年提出的一种抽象计算模型，其更抽象的意义为一种数学逻辑机，可以看作等价于任何有限逻辑数学过程的终极强大逻辑机器。</p><p>图灵的基本思想是用机器来模拟人们用纸笔进行数学运算的过程，他把这样的过程看作下列两种简单的动作：</p><ul><li>在纸上写上或擦除某个符号；</li><li>把注意力从纸的一个位置移动到另一个位置；</li></ul><p>为了模拟人的这种运算过程，图灵构造出一台假想的机器，该机器由以下几个部分组成：</p><ol><li>一条无限长的纸带<strong>TAPE</strong>。纸带被划分为一个接一个的小格子，每个格子上包含一个来自有限字母表的符号，字母表中有一个特殊的符号表示空白。纸带上的格子从左到右依次被编号为0, 1, 2, &mldr;，纸带的右端可以无限伸展。</li><li>一个读写头<strong>HEAD</strong>。该读写头可以在纸带上左右移动，它能读出当前所指的格子上的符号，并能改变当前格子上的符号。</li><li>一套控制规则<strong>TABLE</strong>。它根据当前机器所处的状态以及当前读写头所指的格子上的符号来确定读写头下一步的动作，并改变状态寄存器的值，令机器进入一个新的状态。</li><li>一个<strong>状态寄存器</strong>。它用来保存图灵机当前所处的状态。图灵机的所有可能状态的数目是有限的，并且有一个特殊的状态，称为<em>停机状态</em>。</li></ol><p>注意这个机器的每一部分都是有限的，但它有一个潜在的无限长的纸带，因此这种机器只是一个理想的设备。图灵认为这样的一台机器就能模拟人类所能进行的任何计算过程。</p></blockquote><p>上面这一段来自维基百科。其实，说了这么多，我们可以知道，图灵机所描述的是这么一个机器：有一条纸带和一系列规则，我们根据规则读写和修改纸带上的数据。</p><p>根据图灵机，从Fortran开始，然后是Algol 60，慢慢发展到现在经久不衰的C语言等等。这一类语言我们叫做命令式语言，它们最大的特点就是<strong>描述状态的改变</strong>。</p><p>什么叫状态的改变？考虑一种最常见的数据结构，数组。假如说，我们有一个字符串，要多次修改它，我们应该怎么办？很简单，使用数组存储，然后找出对应部分进行修改。那我们把这一过程如下抽象：</p><blockquote><p>定义字符串$s$，其中$s[i]​$意味着访问第$i​$个元素</p></blockquote><p>那当我们定义出来一个字符串之后，我们执行如下操作：</p><blockquote><ol><li>读入原字符$p$以及需要修改成的目标字符$q$。</li><li>遍历字符串，若$s[i]=p$，则修改$s[i]$为$q$。</li></ol></blockquote><p>循环以上过程$k$次之后，我们得到最终的字符串$s&rsquo;$。</p><p>那我问一个问题，$s&rsquo;=s$成立吗？</p><p>几乎是一瞬间就能知道成立。因为我们每次都是在修改$s$，实际上的$s&rsquo;$就是$s$基础上修改得到，所以$s&rsquo;$和$s$就是一个字符串。</p><p>那你看，我们每一次就是把这个字符串$s$从<strong>一个状态</strong>转换到<strong>另一个状态</strong>，并在多次转换后得到<strong>最终状态</strong>$s&rsquo;$。</p><p>这就是命令式编程。那么，函数式呢？</p><h3 id=ii-函数式编程>ii. 函数式编程</h3><p>我们先来想一个东西。考虑如下函数应用过程：
+$$
+y = f(x) = x + 5
+$$
+当我们输入$x=7$，得到$y=f(5)=12$。在这个过程中考虑如下问题：</p><p><strong>$x$发生了什么变化？</strong></p><p>很直观就能看出，$x$并<strong>没有发生任何变化</strong>。</p><p>这是数学函数应用的两个重要特点：<strong>没有副作用</strong>和<strong>一一对应</strong>。所谓副作用，也就是说，不会产生外部影响，并不会因为我输入$x=2012$而引发世界毁灭。一一对应的意思是，无论在任何情况下，只要我输入$x=2012$，$y$就一定是$2017$，不会有任何变动。</p><p>那所谓函数式编程，就是在这种思想下诞生的。</p><p>什么是函数式编程呢？</p><blockquote><p><strong>函数式编程</strong>（英语：functional programming）或称<strong>函数程序设计</strong>，又称<strong>泛函编程</strong>，是一种程序设计典范，它将电脑运算视为数学上的函数计算，并且避免使用程序状态以及易变物件。 函数式语言最重要的基础是λ演算（lambda演算），而λ演算的函数可以接受函数当作输入（引数）和输出（传出值）。</p><p>比起命令式程式设计，函数式程序设计更加强调程序的执行结果而非执行的过程，倡导利用若干简单的执行单元让计算结果不断渐进，逐层推导复杂的运算，而不是设计一个复杂的执行过程。</p></blockquote><p>你看，是不是明朗的多？其实很简单，我们可以这么考虑，还是利用上面的例子：</p><blockquote><p>定义字符串$s$，其中$s[i]$意味着访问第$i$个元素</p></blockquote><p>现在我们定义一个函数：</p><blockquote><p>$f(s)=s_a$，其中，$s[i]=p$且$s_a[i]=q$。</p></blockquote><p>那上面的过程我们可以如下描述：</p><blockquote><ol><li>读入原字符$p​$以及需要修改成的目标字符$q​$。</li><li>对字符串$s$应用函数$f(s)$，使用一个新字符串$s_a$接收当前结果并留作后用</li></ol></blockquote><p>那循环上述过程$k$次，可得到如下表达式：
+$$
+s_k=f(f(&mldr;f(s)&mldr;))
+$$
+那这里有一个问题，$s_k=s$成立吗？</p><p>从上面的讨论大家就知道，函数<strong>不会修改输入</strong>，每一次我们都是拿一个<strong>全新</strong>的字符串去接收应用结果，所以$s_k\ne s$。</p><p>那第二个问题很好解答，这么一个应用过程之后，我们产生了多少个新字符串？</p><p>$k$个，相信不用我再过多介绍了。</p><p>这就是函数式编程了。我们<strong>永远不</strong>修改输入，而是不断地对输出应用函数。</p><h3 id=iii-开头代码>iii. 开头代码</h3><p>那现在可以解释开头的代码了：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=c1>// Example 1: Recursion, Functional
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=nf>sum</span><span class=p>(</span><span class=kt>int</span> <span class=n>n</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=n>n</span> <span class=o>==</span> <span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>else</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>n</span> <span class=o>+</span> <span class=n>sum</span><span class=p>(</span><span class=n>n</span> <span class=o>-</span> <span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>你看，对于这段代码来说，我们没有修改<code>n</code>，而是把<code>n - 1</code>作为参数传到下一个函数中，最后把所有函数的结果加起来。这其中<strong>没有任何变量修改</strong>。</p><p>而第二段：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=c1>// Example 2: Loop, Imperative
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=nf>sum</span><span class=p>(</span><span class=kt>int</span> <span class=n>n</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=n>res</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;=</span> <span class=n>n</span><span class=p>;</span> <span class=n>i</span><span class=o>++</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>res</span> <span class=o>+=</span> <span class=n>i</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>res</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>我们用了一个变量<code>res</code>，<strong>每次都修改</strong><code>res</code>的值，最后得到我们的结果。</p><h2 id=下期预告>下期预告</h2><p>到现在，函数式和命令式的区别讲清楚了。</p><p>不过，这两段代码还能用好几节，为什么函数式我用了递归，而命令式用了循环呢？</p><p>另外，函数式这么神奇，是哪个大佬起了决定性作用？</p><p>函数式又解决了什么问题呢？</p><p>敬请期待下一期：邱奇和Lambda演算。</p><blockquote><p>Changelog:</p><p>2017.9.16, V1.1: 修复排版错误，更换例子，修复示例代码</p></blockquote></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>更新于 2023-01-04</span></div></div><div class=post-info-line><div class=post-info-md></div><div class=post-info-share><span><a href=javascript:void(0); title="分享到 Twitter" data-sharer=twitter data-url=https://blog.lxdlam.com/post/b0ce9bee/ data-title="函数式编程——Think differently（1）" data-hashtags="FP,函数式编程,Functional Programming,技术"><i class="fab fa-twitter fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Facebook" data-sharer=facebook data-url=https://blog.lxdlam.com/post/b0ce9bee/ data-hashtag=FP><i class="fab fa-facebook-square fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Instapaper" data-sharer=instapaper data-url=https://blog.lxdlam.com/post/b0ce9bee/ data-title="函数式编程——Think differently（1）" data-description><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/instapaper.svg aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Pocket" data-sharer=pocket data-url=https://blog.lxdlam.com/post/b0ce9bee/><i class="fab fa-get-pocket fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 微博" data-sharer=weibo data-url=https://blog.lxdlam.com/post/b0ce9bee/ data-title="函数式编程——Think differently（1）"><i class="fab fa-weibo fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Evernote" data-sharer=evernote data-url=https://blog.lxdlam.com/post/b0ce9bee/ data-title="函数式编程——Think differently（1）"><i class="fab fa-evernote fa-fw" aria-hidden=true></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw" aria-hidden=true></i>&nbsp;<a href=/tags/fp/>FP</a>,&nbsp;<a href=/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/>函数式编程</a>,&nbsp;<a href=/tags/functional-programming/>Functional Programming</a>,&nbsp;<a href=/tags/%E6%8A%80%E6%9C%AF/>技术</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span></section></div><div class=post-nav><a href=/post/2b6bf502/ class=prev rel=prev title=再换评论系统><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>再换评论系统</a>
+<a href=/post/115f5153/ class=next rel=next title="Recent Activity">Recent Activity<i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>由 <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> 强力驱动 | 主题 - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2017 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://blog.lxdlam.com target=_blank>Ramen</a></span>&nbsp;|&nbsp;<span class=license><a rel="license noopener" href=https://creativecommons.org/licenses/by-nc-sa/4.0/ target=_blank>署名-非商业性使用-相同方式共享 4.0 国际</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:10},comment:{},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1}}</script><script type=text/javascript src=/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","UA-92306989-1",{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=UA-92306989-1" async></script></body></html>

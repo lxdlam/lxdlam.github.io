@@ -1,0 +1,21 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Linux - 标签 - Ramen's Box</title><link>https://blog.lxdlam.com/tags/linux/</link><description>Linux - 标签 - Ramen's Box</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>lxdlam@gmail.com (Ramen)</managingEditor><webMaster>lxdlam@gmail.com (Ramen)</webMaster><copyright>本站所有内容基于署名-非商业性使用-相同方式共享 4.0 国际协议（CC BY-NC-SA 4.0）给出许可</copyright><lastBuildDate>Sat, 27 Jan 2018 23:35:39 +0800</lastBuildDate><atom:link href="https://blog.lxdlam.com/tags/linux/" rel="self" type="application/rss+xml"/><item><title>Say Hello To Manjaro</title><link>https://blog.lxdlam.com/post/90e7a5ac/</link><pubDate>Sat, 27 Jan 2018 23:35:39 +0800</pubDate><author>Ramen</author><guid>https://blog.lxdlam.com/post/90e7a5ac/</guid><description><![CDATA[<p>What is Manjaro?</p>
+<p>Manjaro是一个十分出色的基于Arch Linux的Linux发行版，在<a href="https://distrowatch.com/" target="_blank" rel="noopener noreffer ">DistroWatch</a>上已经排到了#2的位置，排名#1的是老牌发行版LinuxMint。</p>
+<p>根据我<a href="https://blog.lxdlam.com/post/589e1e37/" target="_blank" rel="noopener noreffer ">上一篇文章</a>所说的，在我的Elementary崩溃之后，我短暂停留于Fedora，后面根据各种搜索，选择了Manjaro。这篇文章阐述了我选择的理由，也写了我整个安装配置过程，希望能帮到你。</p>]]></description></item><item><title>Linux与Optimus</title><link>https://blog.lxdlam.com/post/589e1e37/</link><pubDate>Sat, 27 Jan 2018 17:11:13 +0800</pubDate><author>Ramen</author><guid>https://blog.lxdlam.com/post/589e1e37/</guid><description><![CDATA[<p>回到家，发现Elementary不能双屏了。然后我开始修，装N卡闭源驱动的时候，我的Elementary自杀了。</p>
+<p>思来想去，Elementary用了一段时间了，想试试新东西，顺便把这个问题给修饿了。</p>
+<p>这篇文章就是这个过程的记录。</p>]]></description></item><item><title>oh my zsh!!!</title><link>https://blog.lxdlam.com/post/517fc966/</link><pubDate>Mon, 15 May 2017 21:50:04 +0800</pubDate><author>Ramen</author><guid>https://blog.lxdlam.com/post/517fc966/</guid><description><![CDATA[<p>Linux下接触最多的就是Shell了，之前一直用默认的bash，虽然早就听说过zsh，但是大家都知道的，懒。</p>
+<p>今天看阮老师博客的时候看到他介绍<a href="http://www.ruanyifeng.com/blog/2017/05/fish_shell.html" target="_blank" rel="noopener noreffer ">fish shell</a>，评论刚好有人提到zsh，我想了一下今晚没多少事就搞了一波，现在我已经zsh上瘾了，无法再回到bash了！</p>
+<p>上一张我现在的shell截图：</p>
+<figure><a class="lightgallery" href="https://assets.lxdlam.com/img/1665505249_d74aaf0b.png" title="https://assets.lxdlam.com/img/1665505249_d74aaf0b.png" data-thumbnail="https://assets.lxdlam.com/img/1665505249_d74aaf0b.png" data-sub-html="<h2>Shell</h2>">
+        
+    </a><figcaption class="image-caption">Shell</figcaption>
+    </figure>
+<p>就写一篇简单的教程怎么定制zsh吧！</p>
+<p>注：Windows用户就别看了，我的环境是Elementary v0.4， 基于Ubuntu 16.04.</p>]]></description></item><item><title>Linux下Wifi热点开启</title><link>https://blog.lxdlam.com/post/58bcf4a2/</link><pubDate>Thu, 04 May 2017 16:05:31 +0800</pubDate><author>Ramen</author><guid>https://blog.lxdlam.com/post/58bcf4a2/</guid><description><![CDATA[<p>实验室只有有线网络，用Windows自然很方便，但是Linux下就很麻烦。</p>
+<p>试过网上流传的各种方法，也尝试去装了<code>ad-hotspot</code>，都没效果。</p>
+<p>今天去<code>ad-hotspot</code>Github页面看到了<code>create_ap</code>这个项目，很快就把热点开起来了，简单记录一下。</p>]]></description></item><item><title>GCC 6.3.0 手动编译安装</title><link>https://blog.lxdlam.com/post/fa1ca4ee/</link><pubDate>Sat, 15 Apr 2017 20:25:31 +0800</pubDate><author>Ramen</author><guid>https://blog.lxdlam.com/post/fa1ca4ee/</guid><description><![CDATA[<p>GCC，即The GNU Compiler Collection，是GNU计划的最关键组成部分。</p>
+<p>GCC是一整套编译器的集合，大家使用的Code::Blocks使用的就是由MinGW提供的GCC编译套件。</p>
+<p>刚刚看Debian 9的新闻的时候发现Debian 9将升级GCC到6，我看了一下，最让人振奋的是编译标准从C++98提升到了C++14，要知道C++11后这门语言已经大有不同，所以这个升级很让我心动。</p>
+<p>GCC作为Linux最核心的一部分，没有提供现成的软件包直接安装，所以写一遍简短的笔记记一下安装过程，也给后来人参考。</p>
+<p>文章发布时GCC 6最新的Release版本是6.3.0。安装的系统是Elementary OS 0.4，基于Ubuntu 16.04。</p>]]></description></item><item><title>换Linux了</title><link>https://blog.lxdlam.com/post/d4004311/</link><pubDate>Wed, 22 Mar 2017 23:48:00 +0800</pubDate><author>Ramen</author><guid>https://blog.lxdlam.com/post/d4004311/</guid><description><![CDATA[<p>换系统啦！</p>
+<p>主要是项目的原因，要在Linux下开发，然而虚拟机真的是卡出新高度，装上VSCode卡到地球毁灭！！！！</p>
+<p>然后我想了一下，直接装在硬盘上吧。</p>]]></description></item><item><title>Gogs搭建纪实</title><link>https://blog.lxdlam.com/post/dc28a2db/</link><pubDate>Sun, 05 Mar 2017 00:00:48 +0800</pubDate><author>Ramen</author><guid>https://blog.lxdlam.com/post/dc28a2db/</guid><description>一直想搭一个私有Git，加上刚刚加了个项目组，组内希望用私有Git做版本控制——这个任务就落到我头上来了。 本来想搭Gitlab的，然后我看了</description></item></channel></rss>
